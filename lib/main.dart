@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
+=======
+import 'package:justy_app/src/pages/homepage.dart';
+import 'package:justy_app/src/pages/login_page.dart';
+import 'package:justy_app/src/pages/principal_page.dart';
+import 'package:justy_app/src/pages/registro_page.dart';
+>>>>>>> Stashed changes
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+<<<<<<< Updated upstream
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -110,6 +118,17 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+=======
+      title: 'material app',
+      debugShowCheckedModeBanner: false,
+      initialRoute: 'homepage',
+      routes: {
+        'homepage': (BuildContext context) => const homePage(),
+        'login' : ( BuildContext context ) => LoginPage(),
+        'registro' : ( BuildContext context ) => RegistroPage(),
+        'principal' : (BuildContext context) => PaginaInit(),
+        },
+>>>>>>> Stashed changes
     );
   }
 }
