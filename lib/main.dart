@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:justy_app/src/pages/homepage.dart';
+
 import 'package:justy_app/src/pages/login_page.dart';
 import 'package:justy_app/src/pages/registro_page.dart';
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         'login' : ( BuildContext context ) => LoginPage(),
         'registro' : ( BuildContext context ) => RegistroPage(),
         },
+
     );
   }
 }
