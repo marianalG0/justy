@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ListGrupos extends StatelessWidget {
+class DocentesLista extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class ListGrupos extends StatelessWidget {
             borderRadius: BorderRadius.circular(35),
             borderSide: BorderSide.none
           ),
-          hintText: 'Buscar...',
+          hintText: 'Buscar docente',
           suffixIcon: Icon(Icons.search),
           suffixIconColor: Color.fromRGBO(91, 74, 66, 1)
         ),
@@ -58,8 +59,7 @@ class ListGrupos extends StatelessWidget {
             iconSize: 40,
             color: Color.fromRGBO(91, 74, 66, 1),
             onPressed: (){
-              print('pagina anterior...');
-              Navigator.pushNamed(context, 'inicio');
+              Navigator.pop(context);
             },
           )
         ),
@@ -73,10 +73,16 @@ class ListGrupos extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: size.width*0.07),
         children: [
-          _campoUsuario(context, '6AMPR', 'Ver'),
-          _campoUsuario(context, '6AMEL', 'Ver'),
-          _campoUsuario(context, '6AMRH', 'Ver'),
-          _campoUsuario(context, '6AVCO', 'Ver'),   
+          _campoUsuario(context, 'Lizbeth Uh Mazún', 'Física'),
+          _campoUsuario(context, 'Noé Solís May', 'Programación'),
+          _campoUsuario(context, 'Casimiro Uuh Echeverria', 'Cálculo'),
+          _campoUsuario(context, 'Belinda Muñoz', 'Química'),   
+          _campoUsuario(context, 'Raúl Ortiz León', 'Estadística'),
+          _campoUsuario(context, 'Renén Canul Almaraz', 'Filosofía'),
+          _campoUsuario(context, 'Raúl Ortiz Esquivel', 'Física'),
+          _campoUsuario(context, 'Juanito Jesús', 'Español'),
+          _campoUsuario(context, 'Beatriz Moo', 'Geometría'),
+          _campoUsuario(context, 'Santiago Esquivel', 'Inglés')
         ],
       );
   }
@@ -109,7 +115,7 @@ class ListGrupos extends StatelessWidget {
         ),
       ),
       onTap: (){
-      
+        print('navegando a otra pagina');
       },
     );
   }

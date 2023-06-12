@@ -85,7 +85,9 @@ class _menuWidget extends StatelessWidget {
                   fontSize: 20.0
                   ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, 'alumnos');
+              },
             ),
 
             Divider(
@@ -105,7 +107,9 @@ class _menuWidget extends StatelessWidget {
                   fontSize: 20.0
                   ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, 'docentes');
+              },
             ),
 
             Divider(

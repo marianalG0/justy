@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:justy_app/src/listas/alumnos_lista.dart';
+import 'package:justy_app/src/listas/docentes_lista.dart';
 
 import 'package:justy_app/src/pages/homepage.dart';
 import 'package:justy_app/src/pages/inicio_page.dart';
@@ -22,12 +24,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: 'homepage',
       routes: {
-        'homepage': (BuildContext context) => const homePage(),
+        'homepage': (BuildContext context) => HomePage(),
         'login': (BuildContext context) => LoginPage(),
         'registro': (BuildContext context) => RegistroPage(),
         'inicio': (BuildContext context) => PaginaInit(),
-        'grupos': (BuildContext context) => listGrupos(),
-      
+        'grupos': (BuildContext context) => ListGrupos(),
+        'alumnos': (BuildContext context) => AlumnosLista(),
+        'docentes': (BuildContext context) => DocentesLista(),      
 
       },
     );

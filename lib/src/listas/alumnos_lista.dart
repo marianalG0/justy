@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ListGrupos extends StatelessWidget {
+class AlumnosLista extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class ListGrupos extends StatelessWidget {
             borderRadius: BorderRadius.circular(35),
             borderSide: BorderSide.none
           ),
-          hintText: 'Buscar...',
+          hintText: 'Buscar alumno',
           suffixIcon: Icon(Icons.search),
           suffixIconColor: Color.fromRGBO(91, 74, 66, 1)
         ),
@@ -58,8 +59,7 @@ class ListGrupos extends StatelessWidget {
             iconSize: 40,
             color: Color.fromRGBO(91, 74, 66, 1),
             onPressed: (){
-              print('pagina anterior...');
-              Navigator.pushNamed(context, 'inicio');
+              Navigator.pop(context);
             },
           )
         ),
@@ -73,15 +73,21 @@ class ListGrupos extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: size.width*0.07),
         children: [
-          _campoUsuario(context, '6AMPR', 'Ver'),
-          _campoUsuario(context, '6AMEL', 'Ver'),
-          _campoUsuario(context, '6AMRH', 'Ver'),
-          _campoUsuario(context, '6AVCO', 'Ver'),   
+          _campoUsuario(context, 'Lizbeth Uh Mazún'),
+          _campoUsuario(context, 'Noé Solís May'),
+          _campoUsuario(context, 'Casimiro Uuh Echeverria'),
+          _campoUsuario(context, 'Belinda Muñoz'),   
+          _campoUsuario(context, 'Raúl Ortiz León'),
+          _campoUsuario(context, 'Renén Canul Almaraz'),
+          _campoUsuario(context, 'Raúl Ortiz Esquivel'),
+          _campoUsuario(context, 'Juanito Jesús'),
+          _campoUsuario(context, 'Beatriz Moo'),
+          _campoUsuario(context, 'Santiago Esquivel')
         ],
       );
   }
 
-  Widget _campoUsuario(BuildContext context, String nombre, String materia) {
+  Widget _campoUsuario(BuildContext context, String nombre) {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       child: Container(
@@ -104,12 +110,12 @@ class ListGrupos extends StatelessWidget {
           children: [
             Icon(Icons.person, color: Colors.white, size: 40,),
             Text(nombre, style: TextStyle(color: Colors.white, fontSize: 18)),
-            Text(materia, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16))  
+            Text('Ver perfil', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16))  
           ],
         ),
       ),
       onTap: (){
-      
+        print('navegando a otra pagina');
       },
     );
   }
@@ -120,7 +126,7 @@ class ListGrupos extends StatelessWidget {
       backgroundColor: Color.fromRGBO(91, 74, 66, 1),
       child: Icon(Icons.add, size: 40),
       onPressed: (){
-        print('agregar docente');
+        print('agregar alumno');
       }
     );
   }
