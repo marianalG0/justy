@@ -3,6 +3,7 @@ import 'package:justy_app/src/pages/homepage.dart';
 import 'package:justy_app/src/pages/inicio_page.dart';
 import 'package:justy_app/src/pages/login_page.dart';
 import 'package:justy_app/src/pages/registro_page.dart';
+import 'package:justy_app/src/widgets/form_alumnos.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,10 +20,10 @@ class MyApp extends StatelessWidget {
       initialRoute: 'homepage',
       routes: {
         'homepage': (BuildContext context) => const homePage(),
-        'login' : ( BuildContext context ) => LoginPage(),
-        'registro' : ( BuildContext context ) => RegistroPage(),
-        'inicio' : ( BuildContext context ) => PaginaInit(),
-        },
+        'login': (BuildContext context) => LoginPage(),
+        'registro': (BuildContext context) => RegistroPage(),
+        'inicio': (BuildContext context) => PaginaInit(),
+      },
     );
   }
 }
