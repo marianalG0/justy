@@ -120,7 +120,7 @@ class ListGrupos extends StatelessWidget {
       backgroundColor: Color.fromRGBO(91, 74, 66, 1),
       child: Icon(Icons.add, size: 40),
       onPressed: (){
-        print('agregar docente');
+        Navigator.pushNamed(context, 'formgrupo');
       }
     );
   }
