@@ -53,7 +53,7 @@ Widget _loginForm(BuildContext context) {
                   child: Text('¿ya tienes una cuenta?, Ingresa aquí', style: TextStyle(color: Color.fromRGBO(91, 74, 66, 1) ),)),
               SizedBox(height: 6.0),
               SizedBox(height: 10.0),
-              _crearBoton()
+              _crearBoton(context)
             ],
           ),
         ),
@@ -150,7 +150,7 @@ Widget _crearPassword() {
   );
 }
 
-Widget _crearBoton() {
+Widget _crearBoton(context) {
   //formValidStream
   // snapshot.hasData
   //  true ? algo si true : algo si false
@@ -174,6 +174,8 @@ Widget _crearBoton() {
     // color: Colors.deepPurple,
     // textColor: Colors.white,
     //onPressed: snapshot.hasData ? ()=> _login(bloc, context) : null
-    onPressed: () {},
+    onPressed: () {
+      Navigator.pushNamed(context, 'inicio');
+    },
   );
 }
