@@ -85,7 +85,9 @@ class _menuWidget extends StatelessWidget {
                   fontSize: 20.0
                   ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, 'alumnos');
+              },
             ),
 
             Divider(
@@ -105,7 +107,9 @@ class _menuWidget extends StatelessWidget {
                   fontSize: 20.0
                   ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, 'docentes');
+              },
             ),
 
             Divider(
@@ -125,9 +129,9 @@ class _menuWidget extends StatelessWidget {
                   fontSize: 20.0
                   ),
               ),
-              onTap: () {
+               onTap: () {
                 //Navigator.pop(context);
-                //Navigator.pushNamed(context, SettingsPage.routeName);
+                Navigator.pushNamed(context, 'grupos');
               },
             ),
 
@@ -173,7 +177,7 @@ class _menuWidget extends StatelessWidget {
               ),
               onTap: () {
                 //Navigator.pop(context);
-                //Navigator.pushNamed(context, SettingsPage.routeName);
+                Navigator.pushNamed(context, 'login');
               },
             ),
           ],
