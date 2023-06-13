@@ -6,6 +6,7 @@ import 'package:justy_app/src/forms/form_grupo.dart';
 import 'package:justy_app/src/forms/form_justificaciones.dart';
 import 'package:justy_app/src/listas/alumnos_lista.dart';
 import 'package:justy_app/src/listas/docentes_lista.dart';
+import 'package:justy_app/src/listas/justificaciones_lista.dart';
 
 import 'package:justy_app/src/pages/homepage.dart';
 
@@ -13,7 +14,6 @@ import 'package:justy_app/src/pages/inicio_page.dart';
 
 import 'package:justy_app/src/pages/login_page.dart';
 import 'package:justy_app/src/pages/registro_page.dart';
-
 
 import 'src/listas/grupos_lista.dart';
 
@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: 'homepage',
       routes: {
-
         'homepage': (BuildContext context) => HomePage(),
         'login': (BuildContext context) => LoginPage(),
         'registro': (BuildContext context) => RegistroPage(),
@@ -39,15 +38,12 @@ class MyApp extends StatelessWidget {
         'grupos': (BuildContext context) => ListGrupos(),
         'alumnos': (BuildContext context) => AlumnosLista(),
         'docentes': (BuildContext context) => DocentesLista(),
+        'justificaciones': (BuildContext context) => JustificacionesLista(),
         'formalumnos': (BuildContext context) => AlumnoPage(),
         'formdocentes': (BuildContext context) => DocentesPage(),
         'formgrupo': (BuildContext context) => GrupoPage(),
         'formjusti': (BuildContext context) => JustificacionPage(),
-      
-      
-
       },
-
     );
   }
 }
