@@ -34,7 +34,7 @@ class JustificacionesLista extends StatelessWidget {
           ),
           hintText: 'Buscar alumno',
           suffixIcon: Icon(Icons.search),
-          suffixIconColor: Color.fromRGBO(91, 74, 66, 1)
+          suffixIconColor: Color.fromRGBO(149, 102, 77, 1)
         ),
       ),
     );
@@ -43,7 +43,7 @@ class JustificacionesLista extends StatelessWidget {
       children: [
         Container(
           decoration: const BoxDecoration(
-            color: Color.fromRGBO(246, 231, 211, 1),
+            color: Color.fromRGBO(1149, 102, 77, 1),
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(40),
               bottomRight: Radius.circular(40)
@@ -57,7 +57,7 @@ class JustificacionesLista extends StatelessWidget {
           child: IconButton(
             icon: Icon(Icons.arrow_back_rounded),
             iconSize: 40,
-            color: Color.fromRGBO(91, 74, 66, 1),
+            color: Color.fromRGBO(149, 102, 77, 1),
             onPressed: (){
               Navigator.pop(context);
             },
@@ -73,51 +73,40 @@ class JustificacionesLista extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: size.width*0.07),
         children: [
-          _campoUsuario(context, 'Lizbeth Uh Mazún'),
-          _campoUsuario(context, 'Noé Solís May'),
-          _campoUsuario(context, 'Casimiro Uuh Echeverria'),
-          _campoUsuario(context, 'Belinda Muñoz'),   
-          _campoUsuario(context, 'Raúl Ortiz León'),
-          _campoUsuario(context, 'Renén Canul Almaraz'),
-          _campoUsuario(context, 'Raúl Ortiz Esquivel'),
-          _campoUsuario(context, 'Juanito Jesús'),
-          _campoUsuario(context, 'Beatriz Moo'),
-          _campoUsuario(context, 'Santiago Esquivel')
+          Divider(),
+          _campoJusti(),
+          Divider(),
+           _campoJusti(),
+          Divider(),
+           _campoJusti(),
+          Divider(),
+          _campoJusti(),
+          Divider(),
+          _campoJusti(),
+          Divider(),
+          _campoJusti(),
+          Divider(),
+
+         
         ],
       );
   }
 
-  Widget _campoUsuario(BuildContext context, String nombre) {
-    final size = MediaQuery.of(context).size;
-    return GestureDetector(
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 15),
-        width: size.width*0.8,
-        height: 60,
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          color: Color.fromRGBO(184, 135, 109, 1),
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [BoxShadow(
-            color: Colors.black45.withOpacity(0.19),
-            offset: Offset(0, 10),
-            blurRadius: 4
-          )],
-          border: Border.all(color: Color.fromRGBO(149, 102, 77, 1), width: 1.5)
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(Icons.person, color: Colors.white, size: 40,),
-            Text(nombre, style: TextStyle(color: Colors.white, fontSize: 18)),
-            Text('Ver perfil', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16))  
-          ],
-        ),
-      ),
-      onTap: (){
-        print('navegando a otra pagina');
-      },
-    );
+  Widget _campoJusti() {
+    
+    return Container(padding: EdgeInsets.all(20.0),decoration: 
+    BoxDecoration(  border: Border.all(color: Color.fromRGBO(88, 56, 41, 1)), borderRadius: BorderRadius.all(Radius.circular(15.0)), color: Color.fromRGBO(246, 231, 211, 1)), child: Column(
+      children: [
+       Row(children: [Text('Estimados maestros del aula: 3     '),
+      Text('Semestre: VI'), ],) ,
+      Text('Fecha: 18-06-2005'), 
+      Text('De la carrera de: Programación'), 
+      Text('Por este medio solicito a usted (es) sea tan amable (s) de justificar la inasistencia del'), 
+      Text('Alumno: Edward Aldayr Lopez Zapata'), 
+      Text('El (los) día (s): 15 de Junio'), 
+      Text('A partir de: 8:00 a 11:00 hrs.'), 
+      Text('Del año en curso, por motivos de: Gripe simia'), 
+      Text('(Familiar, Académico, Salud, Uniforme, Personal)', style: TextStyle(fontSize: 13),)]));
   }
 
   Widget _botonAgregar(BuildContext context) {
