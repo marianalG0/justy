@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class homePage extends StatelessWidget {
-  const homePage({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,11 @@ class homePage extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(10.0),
                   child: ElevatedButton(
-                    onPressed: () {},
+
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, 'registro');
+                    },
+
                     child: Text(
                       'Crear Cuenta',
                       style: TextStyle(fontSize: 30),
@@ -46,7 +50,11 @@ class homePage extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(10.0),
                   child: ElevatedButton(
-                    onPressed: () {},
+
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, 'login');
+                    },
+
                     child: Text(
                       'Ingresar',
                       style: TextStyle(
