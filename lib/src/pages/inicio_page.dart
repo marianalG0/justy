@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class PaginaInit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -32,14 +31,12 @@ class _menuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Drawer(
-        
         backgroundColor: Color.fromRGBO(246, 231, 211, 1.000),
         //Pasamos un listView para poder hacer scroll si hay muchos
         child: ListView(
           //quite el padding
           children: [
             DrawerHeader(
-              
               child: Container(),
               decoration: BoxDecoration(
                   image: DecorationImage(
@@ -61,11 +58,11 @@ class _menuWidget extends StatelessWidget {
                 'Inicio',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color:Color.fromRGBO(91, 74, 66, 1.000) ,
-                  fontSize: 20.0
-                  ),
+                    color: Color.fromRGBO(91, 74, 66, 1.000), fontSize: 20.0),
               ),
-              onTap: () {Navigator.pop(context);},
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
 
             Divider(
@@ -81,11 +78,11 @@ class _menuWidget extends StatelessWidget {
                 'Lista de alumnos',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color:Color.fromRGBO(91, 74, 66, 1.000) ,
-                  fontSize: 20.0
-                  ),
+                    color: Color.fromRGBO(91, 74, 66, 1.000), fontSize: 20.0),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, 'alumnos');
+              },
             ),
 
             Divider(
@@ -101,11 +98,11 @@ class _menuWidget extends StatelessWidget {
                 'Lista de docentes',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color:Color.fromRGBO(91, 74, 66, 1.000) ,
-                  fontSize: 20.0
-                  ),
+                    color: Color.fromRGBO(91, 74, 66, 1.000), fontSize: 20.0),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, 'docentes');
+              },
             ),
 
             Divider(
@@ -121,11 +118,9 @@ class _menuWidget extends StatelessWidget {
                 'Grupos',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color:Color.fromRGBO(91, 74, 66, 1.000) ,
-                  fontSize: 20.0
-                  ),
+                    color: Color.fromRGBO(91, 74, 66, 1.000), fontSize: 20.0),
               ),
-               onTap: () {
+              onTap: () {
                 //Navigator.pop(context);
                 Navigator.pushNamed(context, 'grupos');
               },
@@ -144,13 +139,11 @@ class _menuWidget extends StatelessWidget {
                 'Justificaciones',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color:Color.fromRGBO(91, 74, 66, 1.000) ,
-                  fontSize: 20.0
-                  ),
+                    color: Color.fromRGBO(91, 74, 66, 1.000), fontSize: 20.0),
               ),
               onTap: () {
-                //Navigator.pop(context);
-                //Navigator.pushNamed(context, SettingsPage.routeName);
+                // Navigator.pop(context);
+                Navigator.pushNamed(context, 'justificaciones');
               },
             ),
 
@@ -167,9 +160,7 @@ class _menuWidget extends StatelessWidget {
                 'Salir',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color:Color.fromRGBO(91, 74, 66, 1.000) ,
-                  fontSize: 20.0
-                  ),
+                    color: Color.fromRGBO(91, 74, 66, 1.000), fontSize: 20.0),
               ),
               onTap: () {
                 //Navigator.pop(context);
