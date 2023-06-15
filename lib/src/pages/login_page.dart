@@ -21,9 +21,10 @@ class _LoginPageState extends State<LoginPage> {
       "password": controllerPass.text,
     });
     final data = json.decode(response.body);
+    
     if (data == "Success") {
       Fluttertoast.showToast(
-          msg: 'Login exitoso',
+          msg: 'Usted ingreso correctamente',
           fontSize: 10, 
           textColor: Colors.green,
       );
@@ -35,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       );
     } else {
       Fluttertoast.showToast(
-          msg: 'Username y password inválidos',
+          msg: 'Su username o password son incorrectos',
           fontSize: 10, 
           textColor: Colors.red);
     }
@@ -175,6 +176,7 @@ class _LoginPageState extends State<LoginPage> {
 
                         onPressed: () {
                           login();
+                          
                         },
                       ),
                     ],

@@ -14,6 +14,7 @@ import 'package:justy_app/src/pages/homepage.dart';
 import 'package:justy_app/src/pages/inicio_page.dart';
 
 import 'package:justy_app/src/pages/login_page.dart';
+import 'package:justy_app/src/pages/persona/listaPersona.dart';
 import 'package:justy_app/src/pages/registro_page.dart';
 
 import 'src/listas/grupos_lista.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget{
         'registro': (BuildContext context) => RegistroPage(),
         'inicio': (BuildContext context) => PaginaInit(),
         'grupos': (BuildContext context) => ListGrupos(),
+        'personas': (BuildContext context) => listPer(),
         'alumnos': (BuildContext context) => AlumnosLista(),
         'docentes': (BuildContext context) => DocentesLista(),
         'justificaciones': (BuildContext context) => JustificacionesLista(),
