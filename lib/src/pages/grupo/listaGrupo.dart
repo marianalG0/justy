@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-import 'formPersona.dart';
+import 'formGrupo.dart';
 
-class listPer extends StatefulWidget {
+class listGrupo extends StatefulWidget {
   @override
-  State<listPer> createState() => _listPerState();
+  State<listGrupo> createState() => _listGrupoState();
 }
 
-class _listPerState extends State<listPer> {
+class _listGrupoState extends State<listGrupo> {
   Future getData() async {
-    var url = Uri.parse("http:// 192.168.0.189/justy/leerperson.php");
+    var url = Uri.parse("http:// 192.168.0.189/justy/leergrup.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -34,7 +34,7 @@ class _listPerState extends State<listPer> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => formPersona(),
+                builder: (context) => FormGrupo(),
               ),
             );
           }),
@@ -77,7 +77,7 @@ class _listPerState extends State<listPer> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => formPersona(
+                                      builder: (context) => FormGrupo(
                                         list: list,
                                         index: index,
                                       ),
@@ -86,16 +86,17 @@ class _listPerState extends State<listPer> {
                                   debugPrint('Edit Clicked');
                                 },
                               ),
-                              title: Text(list[index]['nombre']),
-                              subtitle: Text(list[index]['telefono']),
+                              title: Text(list[index]['nomenclatura']),
+                              subtitle: Text(list[index]['aula']),
                               trailing: GestureDetector(
                                 child: Icon(Icons.delete),
                                 onTap: () {
                                   setState(() {
                                     var url = Uri.parse(
-                                        "http:// 192.168.0.189/justy/borrarperson.php");
+                                        "http:// 192.168.0.189/justy/borrargrup.php");
                                     http.post(url, body: {
-                                      'idPersona': list[index]['idPersona'],
+                                      'nomenclatura': list[index]
+                                          ['nomenclatura'],
                                     });
                                   });
                                   debugPrint('delete Clicked');
@@ -110,7 +111,9 @@ class _listPerState extends State<listPer> {
                           children: [
                             Text(
                               'Cargando...',
-                              style: TextStyle(fontSize: 40, color: Colors.red),
+                              style: TextStyle(
+                                  fontSize: 40,
+                                  color: Color.fromARGB(255, 82, 74, 38)),
                             ),
                           ],
                         ),

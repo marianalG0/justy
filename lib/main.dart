@@ -8,7 +8,7 @@ import 'package:justy_app/src/listas/alumnos_lista.dart';
 import 'package:justy_app/src/listas/docentes_lista.dart';
 import 'package:justy_app/src/listas/justificaciones_lista.dart';
 
-import 'package:justy_app/src/pages/homepage.dart';
+// import 'package:justy_app/src/pages/homepage.dart';
 
 import 'package:justy_app/src/pages/inicio_page.dart';
 

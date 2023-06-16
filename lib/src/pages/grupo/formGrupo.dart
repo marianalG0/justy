@@ -2,22 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../inicio_page.dart';
-import 'listaPersona.dart';
+import 'listaGrupo.dart';
 
-class formPersona extends StatefulWidget {
+class FormGrupo extends StatefulWidget {
   final List? list;
   final int? index;
-  formPersona({this.list, this.index});
+  FormGrupo({this.list, this.index});
   @override
-  _formPersonaState createState() => _formPersonaState();
+  _FromGrupoState createState() => _FromGrupoState();
 }
 
-class _formPersonaState extends State<formPersona> {
+class _FromGrupoState extends State<FormGrupo> {
 //CONTROLADORES
-  TextEditingController nombre = TextEditingController();
-  TextEditingController apellidoM = TextEditingController();
-  TextEditingController apellidoP = TextEditingController();
-  TextEditingController telefono = TextEditingController();
+  TextEditingController nomeclatura = TextEditingController();
+  TextEditingController aula = TextEditingController();
 
   bool editMode = false;
 
@@ -26,20 +24,15 @@ class _formPersonaState extends State<formPersona> {
       //para editar uno existente
       var url = Uri.parse("http:// 192.168.0.189/justy/editarperson.php");
       http.post(url, body: {
-        'idPersona': widget.list![widget.index!]['idPersona'],
-        'nombre': nombre.text,
-        'apellidoM': apellidoM.text,
-        'apellidoP': apellidoP.text,
-        'telefono': telefono.text,
+        'nomenclatura': widget.list![widget.index!]['nomenclatura'],
+        'aula': aula.text,
       });
     } else {
       //para agregar uno
       var url = Uri.parse("http:// 192.168.0.189/justy/agregarperson.php");
       http.post(url, body: {
-        'nombre': nombre.text,
-        'apellidoM': apellidoM.text,
-        'apellidoP': apellidoP.text,
-        'telefono': telefono.text,
+        'nomenclatura': widget.list![widget.index!]['nomenclatura'],
+        'aula': aula.text,
       });
     }
   }
@@ -49,10 +42,9 @@ class _formPersonaState extends State<formPersona> {
     super.initState();
     if (widget.index != null) {
       editMode = true;
-      nombre.text = widget.list![widget.index!]['nombre'];
-      apellidoM.text = widget.list![widget.index!]['apellidoM'];
-      apellidoP.text = widget.list![widget.index!]['apellidoP'];
-      telefono.text = widget.list![widget.index!]['telefono'];
+      widget.list![widget.index!]['nomenclatura'] =
+          widget.list![widget.index!]['nomenclatura'];
+      aula.text = widget.list![widget.index!]['apellidoM'];
     }
   }
 
@@ -85,7 +77,7 @@ class _formPersonaState extends State<formPersona> {
                           height: 15,
                         ),
                         TextFormField(
-                          controller: nombre,
+                          controller: nomeclatura,
                           decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.person,
@@ -121,7 +113,7 @@ class _formPersonaState extends State<formPersona> {
                           height: 15,
                         ),
                         TextFormField(
-                          controller: apellidoP,
+                          controller: aula,
                           decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.person,
@@ -139,72 +131,7 @@ class _formPersonaState extends State<formPersona> {
                     SizedBox(
                       height: 15,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Apellido Materno',
-                          style: TextStyle(
-                              color: Color(0xFFFF5B4A42),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500),
-                          textAlign: TextAlign.end,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        TextFormField(
-                          controller: apellidoM,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.person,
-                                color: Colors.black,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              hintText: '',
-                              enabledBorder: borde(),
-                              focusedBorder: borde()),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Teléfono',
-                          style: TextStyle(
-                              color: Color(0xFFFF5B4A42),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500),
-                          textAlign: TextAlign.end,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        TextFormField(
-                          controller: telefono,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.person,
-                                color: Colors.black,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              hintText: '',
-                              enabledBorder: borde(),
-                              focusedBorder: borde()),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
+
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: ElevatedButton(

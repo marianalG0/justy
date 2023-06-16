@@ -15,18 +15,18 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController controllerPass = TextEditingController();
 
   Future login() async {
-    var url = Uri.parse("http://192.168.1.100/justy/login.php");
+    var url = Uri.parse("http:// 192.168.0.189/justy/login.php");
     final response = await http.post(url, body: {
       "username": controllerUser.text,
       "password": controllerPass.text,
     });
     final data = json.decode(response.body);
-    
+
     if (data == "Success") {
       Fluttertoast.showToast(
-          msg: 'Usted ingreso correctamente',
-          fontSize: 10, 
-          textColor: Colors.green,
+        msg: 'Usted ingreso correctamente',
+        fontSize: 10,
+        textColor: Colors.green,
       );
       Navigator.push(
         context,
@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       Fluttertoast.showToast(
           msg: 'Su username o password son incorrectos',
-          fontSize: 10, 
+          fontSize: 10,
           textColor: Colors.red);
     }
   }
@@ -62,7 +62,6 @@ class _LoginPageState extends State<LoginPage> {
                     height: 40.0,
                   ),
                 ),
-                
                 Container(
                   width: size.width * 0.85,
                   margin: EdgeInsets.symmetric(vertical: 30.0),
@@ -74,14 +73,9 @@ class _LoginPageState extends State<LoginPage> {
                             fontSize: 45.0,
                             color: Color.fromRGBO(91, 74, 66, 1),
                           )),
-
                       SizedBox(height: 120.0),
-
                       _labelCuenta(),
-
                       SizedBox(height: 10.0),
-
-
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 20.0),
                         decoration: BoxDecoration(
@@ -103,18 +97,12 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: InputDecoration(
                             hintText: 'usuario',
                             border: InputBorder.none,
-                         
                           ),
-                         
                         ),
                       ),
                       SizedBox(height: 30.0),
-
                       _labelContra(),
-
                       SizedBox(height: 10.0),
-
-
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 20.0),
                         decoration: BoxDecoration(
@@ -143,10 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                           //onChanged: bloc.changePassword,
                         ),
                       ),
-
                       SizedBox(height: 30.0),
-
-
                       TextButton(
                           onPressed: () => Navigator.pushReplacementNamed(
                               context, 'registro'),
@@ -155,12 +140,8 @@ class _LoginPageState extends State<LoginPage> {
                             style:
                                 TextStyle(color: Color.fromRGBO(91, 74, 66, 1)),
                           )),
-
-
                       SizedBox(height: 6.0),
                       SizedBox(height: 10.0),
-                      
-
                       ElevatedButton(
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -173,10 +154,8 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           backgroundColor: Color.fromRGBO(184, 135, 109, 1),
                         ),
-
                         onPressed: () {
                           login();
-                          
                         },
                       ),
                     ],
