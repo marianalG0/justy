@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-import 'formGrupo.dart';
+import 'formDocente.dart';
 
-class listGrupo extends StatefulWidget {
+class listDocente extends StatefulWidget {
   @override
-  State<listGrupo> createState() => _listGrupoState();
+  State<listDocente> createState() => _listDocenteState();
 }
 
-class _listGrupoState extends State<listGrupo> {
+class _listDocenteState extends State<listDocente> {
   Future getData() async {
     var url = Uri.parse("http:// 192.168.0.189/justy/leergrup.php");
     var response = await http.get(url);
@@ -27,7 +27,6 @@ class _listGrupoState extends State<listGrupo> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-
       floatingActionButton: FloatingActionButton(
           backgroundColor: Color.fromRGBO(91, 74, 66, 1),
           child: Icon(Icons.add, size: 40),
@@ -35,7 +34,7 @@ class _listGrupoState extends State<listGrupo> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => FormGrupo(),
+                builder: (context) => FormDocente(),
               ),
             );
           }),
@@ -78,7 +77,7 @@ class _listGrupoState extends State<listGrupo> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => FormGrupo(
+                                      builder: (context) => FormDocente(
                                         list: list,
                                         index: index,
                                       ),
@@ -87,8 +86,8 @@ class _listGrupoState extends State<listGrupo> {
                                   debugPrint('Edit Clicked');
                                 },
                               ),
-                              title: Text(list[index]['nomenclatura']),
-                              subtitle: Text(list[index]['aula']),
+                              title: Text(list[index]['nombre']),
+                              subtitle: Text(list[index]['apellidoP']),
                               trailing: GestureDetector(
                                 child: Icon(Icons.delete),
                                 onTap: () {
@@ -96,8 +95,8 @@ class _listGrupoState extends State<listGrupo> {
                                     var url = Uri.parse(
                                         "http:// 192.168.0.189/justy/borrargrup.php");
                                     http.post(url, body: {
-                                      'nomenclatura': list[index]
-                                          ['nomenclatura'],
+                                      'idDoc': list[index]
+                                          ['idDoc'],
                                     });
                                   });
                                   debugPrint('delete Clicked');
@@ -170,57 +169,3 @@ class _listGrupoState extends State<listGrupo> {
     ]);
   }
 }
-
-
-  Widget _appBar(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    final buscador = Container(
-      margin: EdgeInsets.only(
-        top: size.height*0.12,
-        left: size.width*0.08
-      ),
-      width: size.width*0.85,
-      child: TextField(
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(35),
-            borderSide: BorderSide.none
-          ),
-          hintText: 'Buscar docente',
-          suffixIcon: Icon(Icons.search),
-          suffixIconColor: Color.fromRGBO(91, 74, 66, 1)
-        ),
-      ),
-    );
-
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Color.fromRGBO(246, 231, 211, 1),
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40),
-              bottomRight: Radius.circular(40)
-            )
-          ),
-          width: size.width,
-          height: size.height*0.23,
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 40),
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_rounded),
-            iconSize: 40,
-            color: Color.fromRGBO(91, 74, 66, 1),
-            onPressed: (){
-              Navigator.pop(context);
-            },
-          )
-        ),
-        buscador,
-      ]
-    );
-  }

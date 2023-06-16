@@ -7,6 +7,10 @@ import 'package:justy_app/src/forms/form_justificaciones.dart';
 import 'package:justy_app/src/listas/alumnos_lista.dart';
 import 'package:justy_app/src/listas/docentes_lista.dart';
 import 'package:justy_app/src/listas/justificaciones_lista.dart';
+import 'package:justy_app/src/pages/docente/formDocente.dart';
+import 'package:justy_app/src/pages/docente/listaDocente.dart';
+import 'package:justy_app/src/pages/grupo/formGrupo.dart';
+import 'package:justy_app/src/pages/grupo/listaGrupo.dart';
 
 // import 'package:justy_app/src/pages/homepage.dart';
 
@@ -30,19 +34,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'material app',
       debugShowCheckedModeBanner: false,
-      initialRoute: 'login',
+      initialRoute: 'formdocentes',
       routes: {
         'login': (BuildContext context) => LoginPage(),
         'registro': (BuildContext context) => RegistroPage(),
         'inicio': (BuildContext context) => PaginaInit(),
-        'grupos': (BuildContext context) => ListGrupos(),
+        'grupos': (BuildContext context) => listGrupo(),
         'personas': (BuildContext context) => listPer(),
         'alumnos': (BuildContext context) => AlumnosLista(),
-        'docentes': (BuildContext context) => DocentesLista(),
+        'docentes': (BuildContext context) => listDocente(),
         'justificaciones': (BuildContext context) => JustificacionesLista(),
         'formalumnos': (BuildContext context) => AlumnoPage(),
-        'formdocentes': (BuildContext context) => DocentesPage(),
-        'formgrupo': (BuildContext context) => GrupoPage(),
+        'formdocentes': (BuildContext context) => FormDocente(),
+        'formgrupo': (BuildContext context) => FormGrupo(),
         'formjusti': (BuildContext context) => JustificacionPage(),
       },
     );

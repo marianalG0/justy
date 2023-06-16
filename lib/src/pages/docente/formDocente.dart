@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../inicio_page.dart';
-import 'listaGrupo.dart';
+import 'listaDocente.dart';
 
-class FormGrupo extends StatefulWidget {
+class FormDocente extends StatefulWidget {
   final List? list;
   final int? index;
-  FormGrupo({this.list, this.index});
+  FormDocente({this.list, this.index});
   @override
-  _FromGrupoState createState() => _FromGrupoState();
+  _FromDocenteState createState() => _FromDocenteState();
 }
 
-class _FromGrupoState extends State<FormGrupo> {
+class _FromDocenteState extends State<FormDocente> {
 //CONTROLADORES
-  TextEditingController nomeclatura = TextEditingController();
-  TextEditingController aula = TextEditingController();
+  TextEditingController materia = TextEditingController();
+  TextEditingController per = TextEditingController();
 
   bool editMode = false;
 
@@ -24,15 +24,16 @@ class _FromGrupoState extends State<FormGrupo> {
       //para editar uno existente
       var url = Uri.parse("http:// 192.168.0.189/justy/editarperson.php");
       http.post(url, body: {
-        'nomenclatura': widget.list![widget.index!]['nomenclatura'],
-        'aula': aula.text,
+        'idDoc': widget.list![widget.index!]['idDoc'],
+        'materia': materia.text,
+        'per': per.text
       });
     } else {
       //para agregar uno
       var url = Uri.parse("http:// 192.168.0.189/justy/agregarperson.php");
       http.post(url, body: {
-        'nomenclatura': widget.list![widget.index!]['nomenclatura'],
-        'aula': aula.text,
+       'materia': materia.text,
+        'per': per.text,
       });
     }
   }
@@ -42,15 +43,16 @@ class _FromGrupoState extends State<FormGrupo> {
     super.initState();
     if (widget.index != null) {
       editMode = true;
-    
-      aula.text = widget.list![widget.index!]['apellidoM'];
+    materia.text = widget.list![widget.index!]['materia'];
+      per.text = widget.list![widget.index!]['per'];
+     
+
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       body: Stack(
         children: [
           _crearFoondo(context),
@@ -67,7 +69,7 @@ class _FromGrupoState extends State<FormGrupo> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Nomenclatura',
+                          'Materias',
                           style: TextStyle(
                               color: Color(0xFFFF5B4A42),
                               fontSize: 16,
@@ -78,7 +80,7 @@ class _FromGrupoState extends State<FormGrupo> {
                           height: 15,
                         ),
                         TextFormField(
-                          controller: nomeclatura,
+                          controller: materia,
                           decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.person,
@@ -103,7 +105,7 @@ class _FromGrupoState extends State<FormGrupo> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Aula',
+                          'Persona',
                           style: TextStyle(
                               color: Color(0xFFFF5B4A42),
                               fontSize: 16,
@@ -114,7 +116,7 @@ class _FromGrupoState extends State<FormGrupo> {
                           height: 15,
                         ),
                         TextFormField(
-                          controller: aula,
+                          controller: per,
                           decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.person,
@@ -181,7 +183,7 @@ class _FromGrupoState extends State<FormGrupo> {
     );
   }
 
-  Widget _crearFoondo(BuildContext context) {
+  Widget _crearFondo(BuildContext context) {
     // final size = MediaQuery.of(context).size;
 
     final fondo = Container(
@@ -219,8 +221,7 @@ class _FromGrupoState extends State<FormGrupo> {
         ));
   }
 }
-
- Widget _crearFondo(BuildContext context) {
+  Widget _crearFoondo(BuildContext context) {
     // final size = MediaQuery.of(context).size;
 
     final fondo = Container(
@@ -237,13 +238,15 @@ class _FromGrupoState extends State<FormGrupo> {
       children: <Widget>[
         fondo,
         Container(
-          padding: EdgeInsets.only(top: 60),
+          padding: EdgeInsets.only(top: 15),
           child: Column(
             children: <Widget>[
-              Image.asset('assets/grupo.png'),
+              Image.asset('assets/docente.png'),
             ],
           ),
         )
       ],
     );
   }
+
+ 
