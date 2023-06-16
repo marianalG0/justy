@@ -55,13 +55,13 @@ class _menuWidget extends StatelessWidget {
             //Opciones del menu
             ListTile(
               title: Text(
-                'Inicio',
+                'Personas',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Color.fromRGBO(91, 74, 66, 1.000), fontSize: 20.0),
               ),
               onTap: () {
-                Navigator.pop(context);
+                 Navigator.pushNamed(context, 'personas');
               },
             ),
 
