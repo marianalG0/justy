@@ -14,7 +14,7 @@ class FormGrupo extends StatefulWidget {
 
 class _FromGrupoState extends State<FormGrupo> {
 //CONTROLADORES
-  TextEditingController nomeclatura = TextEditingController();
+  TextEditingController nomenclatura = TextEditingController();
   TextEditingController aula = TextEditingController();
 
   bool editMode = false;
@@ -22,16 +22,16 @@ class _FromGrupoState extends State<FormGrupo> {
   addUpdateData() {
     if (editMode) {
       //para editar uno existente
-      var url = Uri.parse("http:// 192.168.0.189/justy/editarperson.php");
+      var url = Uri.parse("http://192.168.1.100/justy/editargrup.php");
       http.post(url, body: {
         'nomenclatura': widget.list![widget.index!]['nomenclatura'],
         'aula': aula.text,
       });
     } else {
       //para agregar uno
-      var url = Uri.parse("http:// 192.168.0.189/justy/agregarperson.php");
+      var url = Uri.parse("http://192.168.1.100/justy/agregargrup.php");
       http.post(url, body: {
-        'nomenclatura': widget.list![widget.index!]['nomenclatura'],
+        'nomenclatura': nomenclatura.text,
         'aula': aula.text,
       });
     }
@@ -42,8 +42,8 @@ class _FromGrupoState extends State<FormGrupo> {
     super.initState();
     if (widget.index != null) {
       editMode = true;
-    
-      aula.text = widget.list![widget.index!]['apellidoM'];
+      nomenclatura.text = widget.list![widget.index!]['nomenclatura'];
+      aula.text = widget.list![widget.index!]['aula'];
     }
   }
 
@@ -78,7 +78,7 @@ class _FromGrupoState extends State<FormGrupo> {
                           height: 15,
                         ),
                         TextFormField(
-                          controller: nomeclatura,
+                          controller: nomenclatura,
                           decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.person,

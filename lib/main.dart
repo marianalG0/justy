@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'material app',
       debugShowCheckedModeBanner: false,
-      initialRoute: 'formdocentes',
+      initialRoute: 'inicio',
       routes: {
         'login': (BuildContext context) => LoginPage(),
         'registro': (BuildContext context) => RegistroPage(),

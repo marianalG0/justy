@@ -22,7 +22,7 @@ class _FromDocenteState extends State<FormDocente> {
   addUpdateData() {
     if (editMode) {
       //para editar uno existente
-      var url = Uri.parse("http:// 192.168.0.189/justy/editarperson.php");
+      var url = Uri.parse("http://192.168.1.100/justy/editarperson.php");
       http.post(url, body: {
         'idDoc': widget.list![widget.index!]['idDoc'],
         'materia': materia.text,
@@ -30,7 +30,7 @@ class _FromDocenteState extends State<FormDocente> {
       });
     } else {
       //para agregar uno
-      var url = Uri.parse("http:// 192.168.0.189/justy/agregarperson.php");
+      var url = Uri.parse("http://192.168.1.100/justy/agregarperson.php");
       http.post(url, body: {
        'materia': materia.text,
         'per': per.text,

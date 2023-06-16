@@ -13,7 +13,7 @@ class listGrupo extends StatefulWidget {
 
 class _listGrupoState extends State<listGrupo> {
   Future getData() async {
-    var url = Uri.parse("http:// 192.168.0.189/justy/leergrup.php");
+    var url = Uri.parse("http://192.168.1.100/justy/leergrupo.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -87,17 +87,16 @@ class _listGrupoState extends State<listGrupo> {
                                   debugPrint('Edit Clicked');
                                 },
                               ),
-                              title: Text(list[index]['nomenclatura']),
+                              title: Text(list[index]['nomenclatura'],style: TextStyle(color: Colors.white),),
                               subtitle: Text(list[index]['aula']),
                               trailing: GestureDetector(
                                 child: Icon(Icons.delete),
                                 onTap: () {
                                   setState(() {
                                     var url = Uri.parse(
-                                        "http:// 192.168.0.189/justy/borrargrup.php");
+                                        "http://192.168.1.100/justy/borrargrup.php");
                                     http.post(url, body: {
-                                      'nomenclatura': list[index]
-                                          ['nomenclatura'],
+                                      'nomenclatura': list[index]['nomenclatura'],
                                     });
                                   });
                                   debugPrint('delete Clicked');

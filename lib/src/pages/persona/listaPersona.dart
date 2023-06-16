@@ -13,7 +13,7 @@ class listPer extends StatefulWidget {
 
 class _listPerState extends State<listPer> {
   Future getData() async {
-    var url = Uri.parse("http:// 192.168.0.189/justy/leerperson.php");
+    var url = Uri.parse("http://192.168.1.100/justy/leerperson.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -86,14 +86,14 @@ class _listPerState extends State<listPer> {
                                   debugPrint('Edit Clicked');
                                 },
                               ),
-                              title: Text(list[index]['nombre']),
+                              title: Text(list[index]['nombre'], style: TextStyle(color: Colors.white),),
                               subtitle: Text(list[index]['telefono']),
                               trailing: GestureDetector(
                                 child: Icon(Icons.delete),
                                 onTap: () {
                                   setState(() {
                                     var url = Uri.parse(
-                                        "http:// 192.168.0.189/justy/borrarperson.php");
+                                        "http://192.168.1.100/justy/borrarperson.php");
                                     http.post(url, body: {
                                       'idPersona': list[index]['idPersona'],
                                     });
@@ -108,9 +108,11 @@ class _listPerState extends State<listPer> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                             Text(
                               'Cargando...',
-                              style: TextStyle(fontSize: 40, color: Colors.red),
+                              style: TextStyle(
+                                  fontSize: 40,
+                                  color: Color.fromARGB(255, 82, 74, 38)),
                             ),
                           ],
                         ),

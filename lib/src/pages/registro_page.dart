@@ -16,7 +16,7 @@ class _RegistroPageState extends State<RegistroPage> {
   TextEditingController controllerPass = TextEditingController();
 
   Future registro() async {
-    var url = Uri.parse("http:// 192.168.0.189/justy/registro.php");
+    var url = Uri.parse("http://192.168.1.100/justy/registro.php");
     final response = await http.post(url, body: {
       "username": controllerUser.text,
       "password": controllerPass.text,

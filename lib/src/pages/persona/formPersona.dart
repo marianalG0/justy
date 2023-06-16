@@ -24,7 +24,7 @@ class _formPersonaState extends State<formPersona> {
   addUpdateData() {
     if (editMode) {
       //para editar uno existente
-      var url = Uri.parse("http:// 192.168.0.189/justy/editarperson.php");
+      var url = Uri.parse("http://192.168.1.100/justy/editarperson.php");
       http.post(url, body: {
         'idPersona': widget.list![widget.index!]['idPersona'],
         'nombre': nombre.text,
@@ -34,7 +34,7 @@ class _formPersonaState extends State<formPersona> {
       });
     } else {
       //para agregar uno
-      var url = Uri.parse("http:// 192.168.0.189/justy/agregarperson.php");
+      var url = Uri.parse("http://192.168.1.100/justy/agregarperson.php");
       http.post(url, body: {
         'nombre': nombre.text,
         'apellidoM': apellidoM.text,

@@ -13,7 +13,7 @@ class listDocente extends StatefulWidget {
 
 class _listDocenteState extends State<listDocente> {
   Future getData() async {
-    var url = Uri.parse("http:// 192.168.0.189/justy/leergrup.php");
+    var url = Uri.parse("http://192.168.1.100/justy/leergrup.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -93,7 +93,7 @@ class _listDocenteState extends State<listDocente> {
                                 onTap: () {
                                   setState(() {
                                     var url = Uri.parse(
-                                        "http:// 192.168.0.189/justy/borrargrup.php");
+                                        "http://192.168.1.100/justy/borrargrup.php");
                                     http.post(url, body: {
                                       'idDoc': list[index]
                                           ['idDoc'],
