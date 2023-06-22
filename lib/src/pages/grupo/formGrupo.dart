@@ -17,19 +17,40 @@ class _FromGrupoState extends State<FormGrupo> {
   TextEditingController nomenclatura = TextEditingController();
   TextEditingController aula = TextEditingController();
 
+    final List<String> _semestre = [
+    'Primer',
+    'Segundo',
+    'Tercer',
+    'Cuarto',
+    'Quinto',
+    'Sexto'
+  ];
+
+  String _tunoSele = 'Matutino';
+  List<String> _tuno = ['Matutino', 'Vespertino'];
+
+  String _espeSele = 'Programación';
+  List<String> _espe = [
+    'Programación',
+    'Recursos Humanos',
+    'Electricidad',
+    'Ciencia de Datos',
+    'Contabilidad'
+  ];
+
   bool editMode = false;
 
   addUpdateData() {
     if (editMode) {
       //para editar uno existente
-      var url = Uri.parse("http://192.168.1.100/justy/editargrup.php");
+      var url = Uri.parse("http://192.168.1.71/justy/editargrup.php");
       http.post(url, body: {
         'nomenclatura': widget.list![widget.index!]['nomenclatura'],
         'aula': aula.text,
       });
     } else {
       //para agregar uno
-      var url = Uri.parse("http://192.168.1.100/justy/agregargrup.php");
+      var url = Uri.parse("http://192.168.1.71/justy/agregargrup.php");
       http.post(url, body: {
         'nomenclatura': nomenclatura.text,
         'aula': aula.text,
@@ -54,7 +75,6 @@ class _FromGrupoState extends State<FormGrupo> {
       body: Stack(
         children: [
           _crearFoondo(context),
-          _crearFondo(context),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Container(

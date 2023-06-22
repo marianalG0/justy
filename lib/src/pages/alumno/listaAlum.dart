@@ -4,16 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-import 'formDocente.dart';
+import '../grupo/formGrupo.dart';
+import 'formAlum.dart';
 
-class listDocente extends StatefulWidget {
+
+
+class listAlum extends StatefulWidget {
   @override
-  State<listDocente> createState() => _listDocenteState();
+  State<listAlum> createState() => _listAlumState();
 }
 
-class _listDocenteState extends State<listDocente> {
+class _listAlumState extends State<listAlum> {
   Future getData() async {
-    var url = Uri.parse("http://192.168.1.100/justy/leergrup.php");
+    var url = Uri.parse("http://192.168.1.71/justy/leeralum.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -27,6 +30,7 @@ class _listDocenteState extends State<listDocente> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+
       floatingActionButton: FloatingActionButton(
           backgroundColor: Color.fromRGBO(91, 74, 66, 1),
           child: Icon(Icons.add, size: 40),
@@ -34,7 +38,7 @@ class _listDocenteState extends State<listDocente> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => FormDocente(),
+                builder: (context) => FormAlumno(),
               ),
             );
           }),
@@ -77,7 +81,7 @@ class _listDocenteState extends State<listDocente> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => FormDocente(
+                                      builder: (context) => FormGrupo(
                                         list: list,
                                         index: index,
                                       ),
@@ -86,17 +90,15 @@ class _listDocenteState extends State<listDocente> {
                                   debugPrint('Edit Clicked');
                                 },
                               ),
-                              title: Text(list[index]['nombre']),
-                              subtitle: Text(list[index]['apellidoP']),
+                              title: Text(list[index]['nombre'],style: TextStyle(color: Colors.white),),
+                              subtitle: Text(list[index]['especi']),
                               trailing: GestureDetector(
                                 child: Icon(Icons.delete),
                                 onTap: () {
                                   setState(() {
-                                    var url = Uri.parse(
-                                        "http://192.168.1.100/justy/borrargrup.php");
+                                    var url = Uri.parse("http://192.168.1.71/justy/borralum.php");
                                     http.post(url, body: {
-                                      'idDoc': list[index]
-                                          ['idDoc'],
+                                      'numCon': list[index]['numCon'],
                                     });
                                   });
                                   debugPrint('delete Clicked');
@@ -169,3 +171,57 @@ class _listDocenteState extends State<listDocente> {
     ]);
   }
 }
+
+
+  Widget _appBar(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    final buscador = Container(
+      margin: EdgeInsets.only(
+        top: size.height*0.12,
+        left: size.width*0.08
+      ),
+      width: size.width*0.85,
+      child: TextField(
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(35),
+            borderSide: BorderSide.none
+          ),
+          hintText: 'Buscar docente',
+          suffixIcon: Icon(Icons.search),
+          suffixIconColor: Color.fromRGBO(91, 74, 66, 1)
+        ),
+      ),
+    );
+
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            color: Color.fromRGBO(246, 231, 211, 1),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(40),
+              bottomRight: Radius.circular(40)
+            )
+          ),
+          width: size.width,
+          height: size.height*0.23,
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 40),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back_rounded),
+            iconSize: 40,
+            color: Color.fromRGBO(91, 74, 66, 1),
+            onPressed: (){
+              Navigator.pop(context);
+            },
+          )
+        ),
+        buscador,
+      ]
+    );
+  }
