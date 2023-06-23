@@ -1,131 +1,43 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:justy_app/src/forms/form_alumnos.dart';
+import 'package:justy_app/src/pages/alumno/formAlum.dart';
 
-import '../grupo/formGrupo.dart';
-import 'formAlum.dart';
-
-
-
-class listAlum extends StatefulWidget {
-  @override
-  State<listAlum> createState() => _listAlumState();
-}
-
-class _listAlumState extends State<listAlum> {
-  Future getData() async {
-    var url = Uri.parse("http://192.168.1.71/justy/leeralum.php");
-    var response = await http.get(url);
-    return json.decode(response.body);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
+class AlumnosLista extends StatelessWidget {
+  AlumnosLista({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
-
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromRGBO(91, 74, 66, 1),
-          child: Icon(Icons.add, size: 40),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => FormAlumno(),
-              ),
-            );
-          }),
-      body: Column(
-        children: [
-          _appBar(context),
-          Expanded(
-            child: FutureBuilder(
-              future: getData(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) print(snapshot.error);
-                return snapshot.hasData
-                    ? ListView.builder(
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (context, index) {
-                          List list = snapshot.data;
-                          return Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 12),
-                            height: 70,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                            ),
-                            decoration: BoxDecoration(
-                                color: Color.fromRGBO(184, 135, 109, 1),
-                                borderRadius: BorderRadius.circular(30),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black45.withOpacity(0.19),
-                                      offset: Offset(0, 10),
-                                      blurRadius: 4)
-                                ],
-                                border: Border.all(
-                                    color: Color.fromRGBO(149, 102, 77, 1),
-                                    width: 1.5)),
-                            child: ListTile(
-                              leading: GestureDetector(
-                                child: Icon(Icons.edit),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => FormGrupo(
-                                        list: list,
-                                        index: index,
-                                      ),
-                                    ),
-                                  );
-                                  debugPrint('Edit Clicked');
-                                },
-                              ),
-                              title: Text(list[index]['nombre'],style: TextStyle(color: Colors.white),),
-                              subtitle: Text(list[index]['especi']),
-                              trailing: GestureDetector(
-                                child: Icon(Icons.delete),
-                                onTap: () {
-                                  setState(() {
-                                    var url = Uri.parse("http://192.168.1.71/justy/borralum.php");
-                                    http.post(url, body: {
-                                      'numCon': list[index]['numCon'],
-                                    });
-                                  });
-                                  debugPrint('delete Clicked');
-                                },
-                              ),
-                            ),
-                          );
-                        })
-                    : Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Cargando...',
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Color.fromARGB(255, 82, 74, 38)),
-                            ),
-                          ],
-                        ),
-                      );
-              },
-            ),
-          ),
-        ],
-      ),
+      body: Column(children: [
+        _appBar(context),
+        Expanded(child: _lista(context)),
+      ]),
+      floatingActionButton: _botonAgregar(context),
     );
+  }
+
+  Future _listarAlumnos() async {
+    try {
+      final response =
+          await http.post(Uri.parse("http://192.168.1.81/justy/leeralum.php"));
+
+      if (response.statusCode == 200) {
+        var datauser = jsonDecode(response.body);
+        var mensaje = datauser.toString();
+
+        if (mensaje.length > 0) {
+          // La consulta fue exitosa
+          return datauser;
+        }
+      }
+    } catch (e) {
+      print("ufff, entró en el catch");
+      print(e);
+      return [];
+    }
+    return [];
   }
 
   Widget _appBar(BuildContext context) {
@@ -164,64 +76,93 @@ class _listAlumState extends State<listAlum> {
             iconSize: 40,
             color: Color.fromRGBO(91, 74, 66, 1),
             onPressed: () {
-              Navigator.pop(context);
+              print('pagina anterior...');
+              Navigator.pushNamed(context, 'inicio');
             },
           )),
       buscador,
     ]);
   }
-}
 
-
-  Widget _appBar(BuildContext context) {
+  Widget _lista(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
-    final buscador = Container(
-      margin: EdgeInsets.only(
-        top: size.height*0.12,
-        left: size.width*0.08
-      ),
-      width: size.width*0.85,
-      child: TextField(
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(35),
-            borderSide: BorderSide.none
-          ),
-          hintText: 'Buscar docente',
-          suffixIcon: Icon(Icons.search),
-          suffixIconColor: Color.fromRGBO(91, 74, 66, 1)
-        ),
-      ),
-    );
-
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Color.fromRGBO(246, 231, 211, 1),
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40),
-              bottomRight: Radius.circular(40)
-            )
-          ),
-          width: size.width,
-          height: size.height*0.23,
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 40),
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_rounded),
-            iconSize: 40,
-            color: Color.fromRGBO(91, 74, 66, 1),
-            onPressed: (){
-              Navigator.pop(context);
-            },
-          )
-        ),
-        buscador,
-      ]
+    return FutureBuilder(
+      future: _listarAlumnos(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return ListView.builder(
+              itemCount: snapshot.data.length,
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.07),
+              itemBuilder: (BuildContext context, int index) {
+                Map alumno = snapshot.data[index];
+                return _campoUsuario(
+                    context, alumno["nombre"], alumno["numCon"].toString());
+              });
+        }
+      },
     );
   }
+
+  Widget _campoUsuario(BuildContext context, String nombre, String idAlumno) {
+    final size = MediaQuery.of(context).size;
+    return GestureDetector(
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 15),
+        width: size.width * 0.8,
+        height: 60,
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+            color: Color.fromRGBO(184, 135, 109, 1),
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black45.withOpacity(0.19),
+                  offset: Offset(0, 10),
+                  blurRadius: 4)
+            ],
+            border:
+                Border.all(color: Color.fromRGBO(149, 102, 77, 1), width: 1.5)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(
+              Icons.person,
+              color: Colors.white,
+              size: 40,
+            ),
+            Text(nombre, style: TextStyle(color: Colors.white, fontSize: 18)),
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FormAlumno(idAlumno: idAlumno)),
+                  );
+                },
+                icon: Icon(Icons.edit))
+            // Text(materia,
+            //     style: TextStyle(
+            //         fontWeight: FontWeight.bold,
+            //         color: Colors.white,
+            //         fontSize: 16))
+          ],
+        ),
+      ),
+      onTap: () {
+        print("papu");
+      },
+    );
+  }
+
+  Widget _botonAgregar(BuildContext context) {
+    //final size = MediaQuery.of(context).size;
+    return FloatingActionButton(
+        backgroundColor: Color.fromRGBO(91, 74, 66, 1),
+        child: Icon(Icons.add, size: 40),
+        onPressed: () {
+          Navigator.pushNamed(context, 'formalumnos');
+        });
+  }
+}

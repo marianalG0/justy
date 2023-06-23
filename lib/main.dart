@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         'inicio': (BuildContext context) => PaginaInit(),
         'grupos': (BuildContext context) => listGrupo(),
         'personas': (BuildContext context) => listPer(),
-        'alumnos': (BuildContext context) => listAlum(),
+        'alumnos': (BuildContext context) => AlumnosLista(),
       },
     );
   }
