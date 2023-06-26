@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:searchfield/searchfield.dart';
 
 import '../inicio_page.dart';
+import '../notifications.dart';
 
 class formJusty extends StatefulWidget {
 //lista
@@ -401,6 +402,7 @@ class _formJustyState extends State<formJusty> {
                         onPressed: () {
                           setState(() {
                             addUpdateData();
+                            mostrarNotificacion();
                           });
                           Navigator.push(
                             context,

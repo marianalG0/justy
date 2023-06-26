@@ -11,7 +11,7 @@ import 'package:justy_app/src/pages/grupo/listaGrupo.dart';
 import 'package:justy_app/src/pages/grupodoc/listagrupoDoc.dart';
 
 // import 'package:justy_app/src/pages/homepage.dart';
-
+import 'package:justy_app/src/pages/notifications.dart';
 import 'package:justy_app/src/pages/inicio_page.dart';
 
 import 'package:justy_app/src/pages/login_page.dart';
@@ -20,7 +20,12 @@ import 'package:justy_app/src/pages/registro_page.dart';
 
 import 'src/pages/justificaciones/listJusti.dart';
 
-void main() {
+void main() async {
+  // se asegura de correr todas las inicializaciones antes de ejecutar
+  // el método runApp
+  WidgetsFlutterBinding.ensureInitialized();
+  await initNotifications();
+
   runApp(const MyApp());
 }
 
