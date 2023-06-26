@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-06-2023 a las 03:24:25
+-- Tiempo de generación: 26-06-2023 a las 04:01:16
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -42,7 +42,9 @@ CREATE TABLE `alumno` (
 
 INSERT INTO `alumno` (`numControl`, `idPersona`, `idGrupo`, `semestre`, `turno`, `especialidad`) VALUES
 ('0981234587', 6, 2, 'Sexto', 'Matutino', 'Recursos Humanos'),
-('1234567891', 2, 3, '6', 'Vespertino', 'Recursos Humanos');
+('1234567891', 2, 3, '6', 'Vespertino', 'Recursos Humanos'),
+('2135678942', 3, 3, '8', 'fefefe', 'col'),
+('3456789098', 6, 3, 'j', 'j', 'k');
 
 -- --------------------------------------------------------
 
@@ -53,15 +55,17 @@ INSERT INTO `alumno` (`numControl`, `idPersona`, `idGrupo`, `semestre`, `turno`,
 CREATE TABLE `docentes` (
   `idDoc` int(11) NOT NULL,
   `materia` varchar(45) DEFAULT NULL,
-  `per_id` int(11) DEFAULT NULL
+  `idPersona` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `docentes`
 --
 
-INSERT INTO `docentes` (`idDoc`, `materia`, `per_id`) VALUES
-(1, 'Física', 7);
+INSERT INTO `docentes` (`idDoc`, `materia`, `idPersona`) VALUES
+(1, 'Física', 7),
+(4, 'gg', 5),
+(5, 'mate ', 8);
 
 -- --------------------------------------------------------
 
@@ -171,7 +175,7 @@ ALTER TABLE `alumno`
 --
 ALTER TABLE `docentes`
   ADD PRIMARY KEY (`idDoc`),
-  ADD KEY `per_id` (`per_id`);
+  ADD KEY `per_id` (`idPersona`);
 
 --
 -- Indices de la tabla `grupo`
@@ -207,7 +211,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `docentes`
 --
 ALTER TABLE `docentes`
-  MODIFY `idDoc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idDoc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `grupo`
@@ -248,7 +252,7 @@ ALTER TABLE `alumno`
 -- Filtros para la tabla `docentes`
 --
 ALTER TABLE `docentes`
-  ADD CONSTRAINT `docentes_ibfk_1` FOREIGN KEY (`per_id`) REFERENCES `persona` (`idPersona`);
+  ADD CONSTRAINT `docentes_ibfk_1` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`);
 
 --
 -- Filtros para la tabla `grupodoc`

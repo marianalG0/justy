@@ -6,7 +6,7 @@ $db = mysqli_connect('localhost','root','','justy');
 
 $query = $db->query("SELECT docentes.*, persona.*
 FROM docentes
-JOIN persona ON docentes.per_id = persona.idPersona");
+JOIN persona ON docentes.idPersona = persona.idPersona");
 $result = array();
 
 	while ($rowData = $query->fetch_assoc()) {
