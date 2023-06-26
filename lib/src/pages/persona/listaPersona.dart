@@ -128,21 +128,6 @@ class _listPerState extends State<listPer> {
   Widget _appBar(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    final buscador = Container(
-      margin: EdgeInsets.only(top: size.height * 0.12, left: size.width * 0.08),
-      width: size.width * 0.85,
-      child: TextField(
-        decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(35),
-                borderSide: BorderSide.none),
-            hintText: 'Buscar...',
-            suffixIcon: Icon(Icons.search),
-            suffixIconColor: Color.fromRGBO(91, 74, 66, 1)),
-      ),
-    );
 
     return Stack(children: [
       Container(
@@ -152,7 +137,7 @@ class _listPerState extends State<listPer> {
                 bottomLeft: Radius.circular(40),
                 bottomRight: Radius.circular(40))),
         width: size.width,
-        height: size.height * 0.23,
+        height: size.height * 0.2,
       ),
       Container(
           margin: EdgeInsets.only(top: 40),
@@ -164,7 +149,7 @@ class _listPerState extends State<listPer> {
               Navigator.pop(context);
             },
           )),
-      buscador,
+ 
     ]);
   }
 }

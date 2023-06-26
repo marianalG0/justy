@@ -129,22 +129,6 @@ class _listGrupoState extends State<listGrupo> {
   Widget _appBar(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    final buscador = Container(
-      margin: EdgeInsets.only(top: size.height * 0.12, left: size.width * 0.08),
-      width: size.width * 0.85,
-      child: TextField(
-        decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(35),
-                borderSide: BorderSide.none),
-            hintText: 'Buscar...',
-            suffixIcon: Icon(Icons.search),
-            suffixIconColor: Color.fromRGBO(91, 74, 66, 1)),
-      ),
-    );
-
     return Stack(children: [
       Container(
         decoration: const BoxDecoration(
@@ -153,7 +137,7 @@ class _listGrupoState extends State<listGrupo> {
                 bottomLeft: Radius.circular(40),
                 bottomRight: Radius.circular(40))),
         width: size.width,
-        height: size.height * 0.23,
+        height: size.height * 0.2,
       ),
       Container(
           margin: EdgeInsets.only(top: 40),
@@ -165,61 +149,8 @@ class _listGrupoState extends State<listGrupo> {
               Navigator.pop(context);
             },
           )),
-      buscador,
+  
     ]);
   }
 }
 
-
-  Widget _appBar(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    final buscador = Container(
-      margin: EdgeInsets.only(
-        top: size.height*0.12,
-        left: size.width*0.08
-      ),
-      width: size.width*0.85,
-      child: TextField(
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(35),
-            borderSide: BorderSide.none
-          ),
-          hintText: 'Buscar docente',
-          suffixIcon: Icon(Icons.search),
-          suffixIconColor: Color.fromRGBO(91, 74, 66, 1)
-        ),
-      ),
-    );
-
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Color.fromRGBO(246, 231, 211, 1),
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40),
-              bottomRight: Radius.circular(40)
-            )
-          ),
-          width: size.width,
-          height: size.height*0.23,
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 40),
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_rounded),
-            iconSize: 40,
-            color: Color.fromRGBO(91, 74, 66, 1),
-            onPressed: (){
-              Navigator.pop(context);
-            },
-          )
-        ),
-        buscador,
-      ]
-    );
-  }
