@@ -1,4 +1,19 @@
 
+<?php 
+
+	
+$db = mysqli_connect('localhost','root','','justy');
+
+$query = $db->query("SELECT grupo.*, docentes.* FROM grupodoc JOIN grupo ON grupodoc.idGrupo = grupo.id JOIN docentes ON grupodoc.idDoc = docentes.idDoc;");
+$result = array();
+
+	while ($rowData = $query->fetch_assoc()) {
+		$result[] = $rowData;
+	}
+
+
+	echo json_encode($result);
+
 
 
 

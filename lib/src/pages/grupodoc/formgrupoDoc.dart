@@ -1,11 +1,9 @@
 import 'dart:convert';
 
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../inicio_page.dart';
-
 
 class formgd extends StatefulWidget {
 //lista
@@ -17,48 +15,56 @@ class formgd extends StatefulWidget {
 }
 
 class _formgdState extends State<formgd> {
- 
-  List persona = [];
-
-  
+  List grupoItemList = [];
+  List docentes = [];
 
   //conexion a la base de datos para mostrarlo inicio codigo
-  Future getAllperson() async {
-    var url = Uri.parse("http://192.168.1.71/justy/leerperson.php");
+  Future getAllgrupo() async {
+    var url = Uri.parse("http://192.168.1.8/justy/leergrupo.php");
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       setState(() {
-        persona = jsonData;
+        grupoItemList = jsonData;
       });
     }
-    print(persona);
+    print(grupoItemList);
   }
 
+  //conexion a la base de datos para mostrarlo inicio codigo
+  Future getAllperson() async {
+    var url = Uri.parse("http://192.168.1.8/justy/leedoc.php");
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        docentes = jsonData;
+      });
+    }
+    print(docentes);
+  }
 
-
+  String? selectedValue;
+  String? selectedValue2;
 //CONTROLADORES
-  TextEditingController materia = TextEditingController();
 
   bool editMode = false;
-
-String? selectedValue;
 
   addUpdateData() {
     if (editMode) {
       //para editar uno existente
-      var url = Uri.parse("http://192.168.1.71/justy/editardoc.php");
+      var url = Uri.parse("http://192.168.1.8/justy/editargrupodoc.php");
       http.post(url, body: {
-        'idDoc': widget.list![widget.index!]['idDoc'],
-        'materia': materia.text,
-        'idPersona': selectedValue,
+        'idgrupoDoc': widget.list![widget.index!]['idgrupoDoc'],
+        'idGrupo': selectedValue,
+        'idDoc': selectedValue2,
       });
     } else {
       //para agregar uno
-      var url = Uri.parse("http://192.168.1.71/justy/agregardoc.php");
+      var url = Uri.parse("http://192.168.1.8/justy/agregargrupodoc.php");
       http.post(url, body: {
-        'materia': materia.text,
-        'idPersona': selectedValue
+        'idGrupo': selectedValue,
+        'idDoc': selectedValue2,
       });
     }
   }
@@ -66,13 +72,11 @@ String? selectedValue;
   @override
   void initState() {
     super.initState();
-
+    getAllgrupo();
     getAllperson();
 
     if (widget.index != null) {
       editMode = true;
-      materia.text = widget.list?[widget.index!]['materia'];
- 
     }
   }
 
@@ -89,8 +93,10 @@ String? selectedValue;
               child: Expanded(
                 child: ListView(
                   children: <Widget>[
-                  
-                    //para grupo
+                    SizedBox(
+                      height: 25,
+                    ),
+                    //Para persona
                     Row(
                       children: <Widget>[
                         //  const Icon(Icons.border_color),
@@ -98,12 +104,12 @@ String? selectedValue;
                         Expanded(
                           child: DropdownButton(
                             isExpanded: true,
-                            hint: Text('Selecciona la persona'),
+                            hint: Text('Selecciona el grupo'),
                             value: selectedValue,
-                            items: persona.map((persona) {
+                            items: grupoItemList.map((grupo) {
                               return DropdownMenuItem(
-                                  value: persona['idPersona'],
-                                  child: Text(persona['nombre']));
+                                  value: grupo['nomenclatura'],
+                                  child: Text(grupo['nomenclatura']));
                             }).toList(),
                             onChanged: (value) {
                               setState(() {
@@ -115,44 +121,33 @@ String? selectedValue;
                       ],
                     ),
 
-                    //Campoooo0000
-
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    //para grupo
+                    Row(
                       children: <Widget>[
-                        Text(
-                          'Materia',
-                          style: TextStyle(
-                              color: Color(0xFFFF5B4A42),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500),
-                          textAlign: TextAlign.end,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        TextFormField(
-                          controller: materia,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.person,
-                                color: Colors.black,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              hintText: '',
-                              enabledBorder: borde(),
-                              focusedBorder: borde()),
-                        ),
+                        //  const Icon(Icons.border_color),
+                        const SizedBox(width: 30.0),
+                        Expanded(
+                          child: DropdownButton(
+                            isExpanded: true,
+                            hint: Text('Selecciona el docente'),
+                            value: selectedValue2,
+                            items: docentes.map((docentes) {
+                              return DropdownMenuItem(
+                                  value: docentes['idDoc'],
+                                  child: Text(docentes['nombre']));
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                selectedValue2 = value.toString();
+                              });
+                            },
+                          ),
+                        )
                       ],
                     ),
 
-                  
-                    //BOTONEEEES
+                    //Campoooo0000
+
                     SizedBox(
                       height: 15,
                     ),
@@ -186,7 +181,6 @@ String? selectedValue;
                         ),
                       ),
                     ),
-
 
                     TextButton(
                         onPressed: () {
@@ -226,7 +220,7 @@ String? selectedValue;
         Container(
           child: Column(
             children: <Widget>[
-              Image.asset('assets/docente.png'),
+              Image.asset('assets/fondoAlum.png'),
             ],
           ),
         )

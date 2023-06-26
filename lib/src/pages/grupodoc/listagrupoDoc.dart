@@ -6,15 +6,14 @@ import 'package:http/http.dart' as http;
 
 import 'formgrupoDoc.dart';
 
-
-class listgD extends StatefulWidget {
+class ListaGrupodoc extends StatefulWidget {
   @override
-  State<listgD> createState() => _listgDState();
+  State<ListaGrupodoc> createState() => _ListaGrupodocState();
 }
 
-class _listgDState extends State<listgD> {
+class _ListaGrupodocState extends State<ListaGrupodoc> {
   Future getData() async {
-    var url = Uri.parse("http://192.168.1.71/justy/leergrupd.php");
+    var url = Uri.parse("http://192.168.1.8/justy/leergrupd.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -28,7 +27,6 @@ class _listgDState extends State<listgD> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-
       floatingActionButton: FloatingActionButton(
           backgroundColor: Color.fromRGBO(91, 74, 66, 1),
           child: Icon(Icons.add, size: 40),
@@ -72,35 +70,17 @@ class _listgDState extends State<listgD> {
                                 border: Border.all(
                                     color: Color.fromRGBO(149, 102, 77, 1),
                                     width: 1.5)),
-                            child: ListTile(
-                              leading: GestureDetector(
-                                child: Icon(Icons.edit),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => formgd(
-                                        list: list,
-                                        index: index,
-                                      ),
-                                    ),
-                                  );
-                                  debugPrint('Edit Clicked');
-                                },
-                              ),
-                              title: Text(list[index]['nombre'],style: TextStyle(color: Colors.white),),
-                              subtitle: Text(list[index]['materia']),
-                              trailing: GestureDetector(
-                                child: Icon(Icons.delete),
-                                onTap: () {
-                                  setState(() {
-                                    var url = Uri.parse("http://192.168.1.71/justy/borrardoc.php");
-                                    http.post(url, body: {
-                                      'idDoc': list[index]['idDoc'],
-                                    });
-                                  });
-                                  debugPrint('delete Clicked');
-                                },
+                            child: Center(
+                              child: ListTile(
+                                title: Text(
+                                  list[index]['nomenclatura'],
+                                  style: TextStyle(color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
+                                subtitle: Text(
+                                  list[index]['idDoc'],
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                           );
@@ -129,6 +109,22 @@ class _listgDState extends State<listgD> {
   Widget _appBar(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
+    final buscador = Container(
+      margin: EdgeInsets.only(top: size.height * 0.12, left: size.width * 0.08),
+      width: size.width * 0.85,
+      child: TextField(
+        decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(35),
+                borderSide: BorderSide.none),
+            hintText: 'Buscar...',
+            suffixIcon: Icon(Icons.search),
+            suffixIconColor: Color.fromRGBO(91, 74, 66, 1)),
+      ),
+    );
+
     return Stack(children: [
       Container(
         decoration: const BoxDecoration(
@@ -137,7 +133,7 @@ class _listgDState extends State<listgD> {
                 bottomLeft: Radius.circular(40),
                 bottomRight: Radius.circular(40))),
         width: size.width,
-        height: size.height * 0.2,
+        height: size.height * 0.23,
       ),
       Container(
           margin: EdgeInsets.only(top: 40),
@@ -149,7 +145,50 @@ class _listgDState extends State<listgD> {
               Navigator.pop(context);
             },
           )),
-  
+      buscador,
     ]);
   }
+}
+
+Widget _appBar(BuildContext context) {
+  final size = MediaQuery.of(context).size;
+
+  final buscador = Container(
+    margin: EdgeInsets.only(top: size.height * 0.12, left: size.width * 0.08),
+    width: size.width * 0.85,
+    child: TextField(
+      decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(35),
+              borderSide: BorderSide.none),
+          hintText: 'Buscar docente',
+          suffixIcon: Icon(Icons.search),
+          suffixIconColor: Color.fromRGBO(91, 74, 66, 1)),
+    ),
+  );
+
+  return Stack(children: [
+    Container(
+      decoration: const BoxDecoration(
+          color: Color.fromRGBO(246, 231, 211, 1),
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(40),
+              bottomRight: Radius.circular(40))),
+      width: size.width,
+      height: size.height * 0.23,
+    ),
+    Container(
+        margin: EdgeInsets.only(top: 40),
+        child: IconButton(
+          icon: Icon(Icons.arrow_back_rounded),
+          iconSize: 40,
+          color: Color.fromRGBO(91, 74, 66, 1),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        )),
+    buscador,
+  ]);
 }
