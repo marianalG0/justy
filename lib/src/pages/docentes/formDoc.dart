@@ -24,7 +24,7 @@ class _formDocState extends State<formDoc> {
 
   //conexion a la base de datos para mostrarlo inicio codigo
   Future getAllperson() async {
-    var url = Uri.parse("http://192.168.1.71/justy/leerperson.php");
+    var url = Uri.parse("http://192.168.20.74/justy/leerperson.php");
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -47,7 +47,7 @@ String? selectedValue;
   addUpdateData() {
     if (editMode) {
       //para editar uno existente
-      var url = Uri.parse("http://192.168.1.71/justy/editardoc.php");
+      var url = Uri.parse("http://192.168.20.74/justy/editardoc.php");
       http.post(url, body: {
         'idDoc': widget.list![widget.index!]['idDoc'],
         'materia': materia.text,
@@ -55,7 +55,7 @@ String? selectedValue;
       });
     } else {
       //para agregar uno
-      var url = Uri.parse("http://192.168.1.71/justy/agregardoc.php");
+      var url = Uri.parse("http://192.168.20.74/justy/agregardoc.php");
       http.post(url, body: {
         'materia': materia.text,
         'idPersona': selectedValue

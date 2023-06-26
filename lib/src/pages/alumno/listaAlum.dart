@@ -17,7 +17,7 @@ class listAlum extends StatefulWidget {
 
 class _listAlumState extends State<listAlum> {
   Future getData() async {
-    var url = Uri.parse("http://192.168.1.71/justy/leeralum.php");
+    var url = Uri.parse("http://192.168.20.74/justy/leeralum.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -97,7 +97,7 @@ class _listAlumState extends State<listAlum> {
                                 child: Icon(Icons.delete),
                                 onTap: () {
                                   setState(() {
-                                    var url = Uri.parse("http://192.168.1.71/justy/borralum.php");
+                                    var url = Uri.parse("http://192.168.20.74/justy/borralum.php");
                                     http.post(url, body: {
                                       'numControl': list[index]['numControl'],
                                     });

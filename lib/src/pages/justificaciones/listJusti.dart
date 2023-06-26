@@ -4,16 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-import 'formPersona.dart';
+import '../../delegate/search_justy.dart';
 
-class listPer extends StatefulWidget {
+import 'formJusti.dart';
+
+
+
+class listJusty extends StatefulWidget {
   @override
-  State<listPer> createState() => _listPerState();
+  State<listJusty> createState() => _listJustyState();
 }
 
-class _listPerState extends State<listPer> {
+class _listJustyState extends State<listJusty> {
   Future getData() async {
-    var url = Uri.parse("http://192.168.20.74/justy/leerperson.php");
+    var url = Uri.parse("http://192.168.20.74/justy/leerjusti.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -27,6 +31,7 @@ class _listPerState extends State<listPer> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+
       floatingActionButton: FloatingActionButton(
           backgroundColor: Color.fromRGBO(91, 74, 66, 1),
           child: Icon(Icons.add, size: 40),
@@ -34,7 +39,7 @@ class _listPerState extends State<listPer> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => formPersona(),
+                builder: (context) => formJusty(),
               ),
             );
           }),
@@ -77,7 +82,7 @@ class _listPerState extends State<listPer> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => formPersona(
+                                      builder: (context) => formJusty(
                                         list: list,
                                         index: index,
                                       ),
@@ -86,16 +91,15 @@ class _listPerState extends State<listPer> {
                                   debugPrint('Edit Clicked');
                                 },
                               ),
-                              title: Text(list[index]['nombre'], style: TextStyle(color: Colors.white),),
-                              subtitle: Text(list[index]['telefono']),
+                              title: Text(list[index]['nombre'],style: TextStyle(color: Colors.white),),
+                              subtitle: Text(list[index]['numControl']),
                               trailing: GestureDetector(
                                 child: Icon(Icons.delete),
                                 onTap: () {
                                   setState(() {
-                                    var url = Uri.parse(
-                                        "http://192.168.20.74/justy/borrarperson.php");
+                                    var url = Uri.parse("http://192.168.20.74/justy/borrarjusti.php");
                                     http.post(url, body: {
-                                      'idPersona': list[index]['idPersona'],
+                                      'idJusty': list[index]['idJusty'],
                                     });
                                   });
                                   debugPrint('delete Clicked');
@@ -108,7 +112,7 @@ class _listPerState extends State<listPer> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                             Text(
+                            Text(
                               'Cargando...',
                               style: TextStyle(
                                   fontSize: 40,
@@ -128,8 +132,55 @@ class _listPerState extends State<listPer> {
   Widget _appBar(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
+    final buscador = Container(
+      margin: EdgeInsets.only(top: size.height * 0.12, left: size.width * 0.08),
+      width: size.width * 0.85,
+      child: TextField(
+        decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(35),
+                borderSide: BorderSide.none),
+            hintText: 'Buscar...',
+            suffixIcon: Icon(Icons.search),
+            suffixIconColor: Color.fromRGBO(91, 74, 66, 1)),
+      ),
+    );
 
     return Stack(children: [
+      Container(
+        decoration: const BoxDecoration(
+            color: Color.fromRGBO(246, 231, 211, 1),
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40))),
+        width: size.width,
+        height: size.height * 0.23,
+      ),
+      Container(
+          margin: EdgeInsets.only(top: 40),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back_rounded),
+            iconSize: 40,
+            color: Color.fromRGBO(91, 74, 66, 1),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )),
+      buscador,
+    ]);
+  }
+}
+
+
+  Widget _appBar(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Stack(
+      
+      children: [
+      
       Container(
         decoration: const BoxDecoration(
             color: Color.fromRGBO(246, 231, 211, 1),
@@ -149,7 +200,18 @@ class _listPerState extends State<listPer> {
               Navigator.pop(context);
             },
           )),
- 
+         
+      Container(
+          margin: EdgeInsets.only(top: 40),
+          padding: EdgeInsets.only(left: 270.0),
+          child: IconButton(
+            icon: Icon(Icons.search),
+            iconSize: 40,
+            color: Color.fromRGBO(91, 74, 66, 1),
+            onPressed: () {
+              showSearch(context: context, 
+              delegate: SearchJust());
+            },
+          )),
     ]);
   }
-}

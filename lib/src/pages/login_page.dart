@@ -15,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController controllerPass = TextEditingController();
 
   Future login() async {
-    var url = Uri.parse("http://192.168.1.71/justy/login.php");
+    var url = Uri.parse("http://192.168.20.74/justy/login.php");
     final response = await http.post(url, body: {
       "username": controllerUser.text,
       "password": controllerPass.text,

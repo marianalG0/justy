@@ -2,83 +2,91 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:searchfield/searchfield.dart';
 
 import '../inicio_page.dart';
 
-
-class formAlum extends StatefulWidget {
+class formJusty extends StatefulWidget {
 //lista
+
   final List? list;
   final int? index;
-  formAlum({this.list, this.index});
+  formJusty({this.list, this.index});
   @override
-  _formAlumState createState() => _formAlumState();
+  _formJustyState createState() => _formJustyState();
 }
 
-class _formAlumState extends State<formAlum> {
-  List grupoItemList = [];
-  List persona = [];
+class _formJustyState extends State<formJusty> {
+  String _fecha = '';
+  String _hora = '';
+  List alumItemList = [];
+  List group = [];
 
   //conexion a la base de datos para mostrarlo inicio codigo
-  Future getAllgrupo() async {
-    var url = Uri.parse("http://192.168.20.74/justy/leergrupo.php");
+  Future getAllData() async {
+    var url = Uri.parse("http://192.168.20.74/justy/leeralum.php");
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       setState(() {
-        grupoItemList = jsonData;
+        alumItemList = jsonData;
       });
     }
-    print(grupoItemList);
+    print(alumItemList);
   }
 
   //conexion a la base de datos para mostrarlo inicio codigo
-  Future getAllperson() async {
-    var url = Uri.parse("http://192.168.20.74/justy/leerperson.php");
+  Future getAllGroup() async {
+    var url = Uri.parse("http://192.168.20.74/justy/leergrupd.php");
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       setState(() {
-        persona = jsonData;
+        group = jsonData;
       });
     }
-    print(persona);
+    print(group);
   }
 
   String? selectedValue;
   String? selectedValue2;
 //CONTROLADORES
-  TextEditingController numControl = TextEditingController();
-  TextEditingController semestre = TextEditingController();
-  TextEditingController turno = TextEditingController();
-  TextEditingController especialidad = TextEditingController();
+  //TextEditingController numControl = TextEditingController();
+  //TextEditingController grupo = TextEditingController();
+  TextEditingController motivo = TextEditingController();
+  TextEditingController otroMotivo = TextEditingController();
+  TextEditingController fechaInicial = TextEditingController();
+  TextEditingController fechaFinal = TextEditingController();
+  TextEditingController horaInicial =  TextEditingController();
+  TextEditingController horaFinal =TextEditingController();
 
   bool editMode = false;
-
-
 
   addUpdateData() {
     if (editMode) {
       //para editar uno existente
-      var url = Uri.parse("http://192.168.20.74/justy/editaralumno.php");
+      var url = Uri.parse("http://192.168.20.74/justy/editarjusti.php");
       http.post(url, body: {
-        'numControl': widget.list![widget.index!]['numControl'],
-        'idPersona': selectedValue2,
-        'idGrupo': selectedValue,
-        'semestre': semestre.text,
-        'turno': turno.text,
-        'especialidad': especialidad.text,
+        'idJusty':widget.list![widget.index!]['idJusty'],
+        'numControl': selectedValue,
+        'idGrupoDoc': selectedValue2,
+        'fechaInicio': fechaInicial.text,
+        'fechaFinal': fechaFinal.text,
+        'horaInicio': horaInicial.text,
+        'horaFinal': horaFinal.text,
+        'motivo': motivo.text,
       });
     } else {
       //para agregar uno
-      var url = Uri.parse("http://192.168.20.74/justy/agregaralumno.php");
+      var url = Uri.parse("http://192.168.20.74/justy/agregarjusti.php");
       http.post(url, body: {
-        'numControl': numControl.text,
-        'idPersona': selectedValue2,
-        'idGrupo': selectedValue,
-        'semestre': semestre.text,
-        'turno': turno.text,
-        'especialidad': especialidad.text,
+        'numControl': selectedValue,
+        'idGrupoDoc': selectedValue2,
+        'fechaInicio': fechaInicial.text,
+        'fechaFinal': fechaFinal.text,
+        'horaInicio': horaInicial.text,
+        'horaFinal': horaFinal.text,
+        'motivo': motivo.text,
       });
     }
   }
@@ -86,15 +94,16 @@ class _formAlumState extends State<formAlum> {
   @override
   void initState() {
     super.initState();
-    getAllgrupo();
-    getAllperson();
+    getAllData();
+    getAllGroup();
 
     if (widget.index != null) {
       editMode = true;
-      numControl.text = widget.list?[widget.index!]['numControl'];
-      semestre.text = widget.list![widget.index!]['semestre'];
-      turno.text = widget.list![widget.index!]['turno'];
-      especialidad.text = widget.list![widget.index!]['especialidad'];
+      fechaInicial.text = widget.list![widget.index!]['fechaInicio'];
+      fechaFinal.text = widget.list![widget.index!]['fechaFinal'];
+      horaInicial.text = widget.list![widget.index!]['horaInicio'];
+      horaFinal.text = widget.list![widget.index!]['fechaFinal'];
+      motivo.text = widget.list![widget.index!]['motivo'];
     }
   }
 
@@ -116,7 +125,7 @@ class _formAlumState extends State<formAlum> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'numControl',
+                          'Número de control',
                           style: TextStyle(
                               color: Color(0xFFFF5B4A42),
                               fontSize: 16,
@@ -126,39 +135,15 @@ class _formAlumState extends State<formAlum> {
                         SizedBox(
                           height: 15,
                         ),
-                        TextFormField(
-                          controller: numControl,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.person,
-                                color: Colors.black,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              hintText: '',
-                              enabledBorder: borde(),
-                              focusedBorder: borde()),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                          height: 15,
-                        ),
-                    //Para persona
-                    Row(
-                      children: <Widget>[
-                        //  const Icon(Icons.border_color),
-                        const SizedBox(width: 30.0),
-                        Expanded(
+                        Container(
                           child: DropdownButton(
                             isExpanded: true,
-                            hint: Text('Selecciona la especialidad'),
+                            hint: Text('Selecciona el alumno'),
                             value: selectedValue,
-                            items: grupoItemList.map((grupo) {
+                            items: alumItemList.map((numCon) {
                               return DropdownMenuItem(
-                                  value: grupo['nomenclatura'],
-                                  child: Text(grupo['nomenclatura']));
+                                  value: numCon['numControl'],
+                                  child: Text(numCon['numControl']));
                             }).toList(),
                             onChanged: (value) {
                               setState(() {
@@ -166,8 +151,11 @@ class _formAlumState extends State<formAlum> {
                               });
                             },
                           ),
-                        )
+                        ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 15,
                     ),
 
                     //para grupo
@@ -178,12 +166,12 @@ class _formAlumState extends State<formAlum> {
                         Expanded(
                           child: DropdownButton(
                             isExpanded: true,
-                            hint: Text('Selecciona la persona'),
+                            hint: Text('Selecciona al grupo'),
                             value: selectedValue2,
-                            items: persona.map((persona) {
+                            items: group.map((group) {
                               return DropdownMenuItem(
-                                  value: persona['idPersona'],
-                                  child: Text(persona['nombre']));
+                                  value: group['idgrupoDoc'],
+                                  child: Text(group['nomenclatura']));
                             }).toList(),
                             onChanged: (value) {
                               setState(() {
@@ -204,7 +192,7 @@ class _formAlumState extends State<formAlum> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Semestre',
+                          'Fecha inicio',
                           style: TextStyle(
                               color: Color(0xFFFF5B4A42),
                               fontSize: 16,
@@ -215,18 +203,24 @@ class _formAlumState extends State<formAlum> {
                           height: 15,
                         ),
                         TextFormField(
-                          controller: semestre,
                           decoration: InputDecoration(
                               prefixIcon: Icon(
-                                Icons.person,
+                                Icons.calendar_month,
                                 color: Colors.black,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
-                              hintText: '',
+                              hintText: 'Seleccione la fecha',
                               enabledBorder: borde(),
                               focusedBorder: borde()),
+                          enableInteractiveSelection: false,
+                          controller: fechaInicial,
+                          onTap: () {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            _selectDate(context);
+                          },
                         ),
                       ],
                     ),
@@ -239,7 +233,7 @@ class _formAlumState extends State<formAlum> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Turno',
+                          'Fecha final',
                           style: TextStyle(
                               color: Color(0xFFFF5B4A42),
                               fontSize: 16,
@@ -250,18 +244,24 @@ class _formAlumState extends State<formAlum> {
                           height: 15,
                         ),
                         TextFormField(
-                          controller: turno,
                           decoration: InputDecoration(
                               prefixIcon: Icon(
-                                Icons.person,
+                                Icons.calendar_month,
                                 color: Colors.black,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
-                              hintText: '',
+                              hintText: 'Seleccione la fecha',
                               enabledBorder: borde(),
                               focusedBorder: borde()),
+                          enableInteractiveSelection: false,
+                          controller: fechaFinal,
+                          onTap: () {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            _selectDateFinal(context);
+                          },
                         ),
                       ],
                     ),
@@ -274,7 +274,7 @@ class _formAlumState extends State<formAlum> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Especialidad',
+                          'Hora inicio',
                           style: TextStyle(
                               color: Color(0xFFFF5B4A42),
                               fontSize: 16,
@@ -285,10 +285,88 @@ class _formAlumState extends State<formAlum> {
                           height: 15,
                         ),
                         TextFormField(
-                          controller: especialidad,
                           decoration: InputDecoration(
                               prefixIcon: Icon(
-                                Icons.person,
+                                Icons.access_time_outlined,
+                                color: Colors.black,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              hintText: 'seleccione la hora',
+                              enabledBorder: borde(),
+                              focusedBorder: borde()),
+                          enableInteractiveSelection: false,
+                          controller: horaInicial,
+                          onTap: () {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            _selectTime(context);
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Hora final',
+                          style: TextStyle(
+                              color: Color(0xFFFF5B4A42),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                          textAlign: TextAlign.end,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.access_time_outlined,
+                                color: Colors.black,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              hintText: 'Selecciona la hora',
+                              enabledBorder: borde(),
+                              focusedBorder: borde()),
+                          enableInteractiveSelection: false,
+                          controller: horaFinal,
+                          onTap: () {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            _selectTimeFinal(context);
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Motivo',
+                          style: TextStyle(
+                              color: Color(0xFFFF5B4A42),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                          textAlign: TextAlign.end,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextFormField(
+                          controller: motivo,
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.edit_document,
                                 color: Colors.black,
                               ),
                               border: OutlineInputBorder(
@@ -299,6 +377,9 @@ class _formAlumState extends State<formAlum> {
                               focusedBorder: borde()),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 15,
                     ),
 
                     //BOTONEEEES
@@ -336,7 +417,6 @@ class _formAlumState extends State<formAlum> {
                       ),
                     ),
 
-
                     TextButton(
                         onPressed: () {
                           Navigator.pop(context);
@@ -354,6 +434,70 @@ class _formAlumState extends State<formAlum> {
         ],
       ),
     );
+  }
+
+  _selectDate(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: new DateTime.now(),
+        firstDate: new DateTime(2018),
+        lastDate: new DateTime(2025),
+        locale: Locale('es', 'ES'));
+
+    if (picked != null) {
+      setState(() {
+        _fecha = picked.toString();
+        // hace que de acuerdo a lo que pongamos el controlador lo tomara y lo enviara a la caja de texto,
+        // de esta forma nos muestra la fecha
+        fechaInicial.text = _fecha;
+      });
+    }
+  }
+
+  _selectDateFinal(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: new DateTime.now(),
+        firstDate: new DateTime(2018),
+        lastDate: new DateTime(2025),
+        locale: Locale('es', 'ES'));
+
+    if (picked != null) {
+      setState(() {
+        _fecha = picked.toString();
+        // hace que de acuerdo a lo que pongamos el controlador lo tomara y lo enviara a la caja de texto,
+        // de esta forma nos muestra la fecha
+        fechaFinal.text = _fecha;
+      });
+    }
+  }
+
+  _selectTime(BuildContext context) async {
+    TimeOfDay? picked = await showTimePicker(
+        context: context, initialTime: new TimeOfDay.now());
+
+    if (picked != null) {
+      setState(() {
+        _hora = picked.toString();
+        // hace que de acuerdo a lo que pongamos el controlador lo tomara y lo enviara a la caja de texto,
+        // de esta forma nos muestra la fecha
+        horaInicial.text = _hora;
+      });
+    }
+  }
+
+  _selectTimeFinal(BuildContext context) async {
+    TimeOfDay? picked = await showTimePicker(
+        context: context, initialTime: new TimeOfDay.now());
+
+    if (picked != null) {
+      setState(() {
+        _hora = picked.toString();
+        // hace que de acuerdo a lo que pongamos el controlador lo tomara y lo enviara a la caja de texto,
+        // de esta forma nos muestra la fecha
+        horaFinal.text = _hora;
+      });
+    }
   }
 
   Widget _crearFondo(BuildContext context) {

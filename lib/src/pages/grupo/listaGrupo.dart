@@ -13,7 +13,7 @@ class listGrupo extends StatefulWidget {
 
 class _listGrupoState extends State<listGrupo> {
   Future getData() async {
-    var url = Uri.parse("http://192.168.1.71/justy/leergrupo.php");
+    var url = Uri.parse("http://192.168.20.74/justy/leergrupo.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -94,7 +94,7 @@ class _listGrupoState extends State<listGrupo> {
                                 onTap: () {
                                   setState(() {
                                     var url = Uri.parse(
-                                        "http://192.168.1.71/justy/borrargrup.php");
+                                        "http://192.168.20.74/justy/borrargrup.php");
                                     http.post(url, body: {
                                       'nomenclatura': list[index]['nomenclatura'],
                                     });

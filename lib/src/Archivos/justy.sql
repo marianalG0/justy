@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-06-2023 a las 04:01:16
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 8.1.10
+-- Tiempo de generación: 26-06-2023 a las 08:34:12
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -111,6 +111,30 @@ INSERT INTO `grupodoc` (`idgrupoDoc`, `idGrupo`, `idDoc`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `justificacion`
+--
+
+CREATE TABLE `justificacion` (
+  `idJusty` int(11) NOT NULL,
+  `numControl` char(10) DEFAULT NULL,
+  `idGrupoDoc` int(11) DEFAULT NULL,
+  `fechaInicio` varchar(45) DEFAULT NULL,
+  `fechaFinal` varchar(45) DEFAULT NULL,
+  `horaInicio` varchar(45) DEFAULT NULL,
+  `horaFinal` varchar(45) DEFAULT NULL,
+  `motivo` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `justificacion`
+--
+
+INSERT INTO `justificacion` (`idJusty`, `numControl`, `idGrupoDoc`, `fechaInicio`, `fechaFinal`, `horaInicio`, `horaFinal`, `motivo`) VALUES
+(1, '0981234587', 1, '2023-06-26 11:46:40', '2023-06-27 21:46:40', 'TimeOfDay(04:28)', 'TimeOfDay(06:28)', 'nonse');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `persona`
 --
 
@@ -192,6 +216,14 @@ ALTER TABLE `grupodoc`
   ADD KEY `idDoc` (`idDoc`);
 
 --
+-- Indices de la tabla `justificacion`
+--
+ALTER TABLE `justificacion`
+  ADD PRIMARY KEY (`idJusty`),
+  ADD KEY `numControl` (`numControl`),
+  ADD KEY `idGrupoDoc` (`idGrupoDoc`);
+
+--
 -- Indices de la tabla `persona`
 --
 ALTER TABLE `persona`
@@ -224,6 +256,12 @@ ALTER TABLE `grupo`
 --
 ALTER TABLE `grupodoc`
   MODIFY `idgrupoDoc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `justificacion`
+--
+ALTER TABLE `justificacion`
+  MODIFY `idJusty` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
@@ -261,6 +299,13 @@ ALTER TABLE `grupodoc`
   ADD CONSTRAINT `grupodoc_ibfk_1` FOREIGN KEY (`idGrupo`) REFERENCES `grupo` (`id`),
   ADD CONSTRAINT `grupodoc_ibfk_2` FOREIGN KEY (`idGrupo`) REFERENCES `grupo` (`id`),
   ADD CONSTRAINT `grupodoc_ibfk_3` FOREIGN KEY (`idDoc`) REFERENCES `docentes` (`idDoc`);
+
+--
+-- Filtros para la tabla `justificacion`
+--
+ALTER TABLE `justificacion`
+  ADD CONSTRAINT `justificacion_ibfk_1` FOREIGN KEY (`numControl`) REFERENCES `alumno` (`numControl`),
+  ADD CONSTRAINT `justificacion_ibfk_2` FOREIGN KEY (`idGrupoDoc`) REFERENCES `grupodoc` (`idgrupoDoc`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

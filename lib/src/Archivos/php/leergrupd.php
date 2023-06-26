@@ -4,8 +4,10 @@
 	
 $db = mysqli_connect('localhost','root','','justy');
 
-$query = $db->query("SELECT grupo.*, docentes.* FROM grupodoc JOIN grupo ON grupodoc.idGrupo = grupo.id JOIN docentes ON grupodoc.idDoc = docentes.idDoc;");
-$result = array();
+	$query = $db->query("SELECT `grupodoc`.*, `grupo`.*
+    FROM `grupodoc` 
+        LEFT JOIN `grupo` ON `grupodoc`.`idGrupo` = `grupo`.`id`;");
+	$result = array();
 
 	while ($rowData = $query->fetch_assoc()) {
 		$result[] = $rowData;
@@ -13,6 +15,7 @@ $result = array();
 
 
 	echo json_encode($result);
+
 
 
 

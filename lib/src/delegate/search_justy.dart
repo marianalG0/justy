@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class DataSearch extends SearchDelegate {
+class SearchJust extends SearchDelegate {
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -63,7 +63,7 @@ class DataSearch extends SearchDelegate {
             final result = snapshot.data![index];
             return ListTile(
               title: Text(result['numControl']),
-              subtitle: Text(result['semestre']),
+              subtitle: Text(result['nombre']),
             );
           },
         );
@@ -76,7 +76,7 @@ class DataSearch extends SearchDelegate {
   );
 }
 Future<List<Map<String, dynamic>>> searchByPhoneNumber(String numControl) async {
-  String url = "http://192.168.20.74/justy/getalum.php";
+  String url = "http://192.168.20.74/justy/getjusty.php";
 
   Map<String, String> headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   Map<String, String> body = {'numControl': numControl};
