@@ -125,6 +125,26 @@ class _menuWidget extends StatelessWidget {
                 Navigator.pushNamed(context, 'grupos');
               },
             ),
+             Divider(
+              height: 20.0,
+              thickness: 5.0,
+              indent: 30.0,
+              endIndent: 30.0,
+              color: Color.fromRGBO(91, 74, 66, 1.000),
+            ),
+
+            ListTile(
+              title: Text(
+                'GrupoDoc',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Color.fromRGBO(91, 74, 66, 1.000), fontSize: 20.0),
+              ),
+              onTap: () {
+                //Navigator.pop(context);
+                Navigator.pushNamed(context, 'grupoDoc');
+              },
+            ),
 
             Divider(
               height: 20.0,

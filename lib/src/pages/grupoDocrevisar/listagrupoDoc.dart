@@ -4,19 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-
-import 'formAlum.dart';
-
+import 'formgrupoDoc.dart';
 
 
-class listAlum extends StatefulWidget {
+class listgD extends StatefulWidget {
   @override
-  State<listAlum> createState() => _listAlumState();
+  State<listgD> createState() => _listgDState();
 }
 
-class _listAlumState extends State<listAlum> {
+class _listgDState extends State<listgD> {
   Future getData() async {
-    var url = Uri.parse("http://192.168.1.71/justy/leeralum.php");
+    var url = Uri.parse("http://192.168.1.71/justy/leergrupd.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -38,7 +36,7 @@ class _listAlumState extends State<listAlum> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => formAlum(),
+                builder: (context) => formgd(),
               ),
             );
           }),
@@ -81,7 +79,7 @@ class _listAlumState extends State<listAlum> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => formAlum(
+                                      builder: (context) => formgd(
                                         list: list,
                                         index: index,
                                       ),
@@ -91,14 +89,14 @@ class _listAlumState extends State<listAlum> {
                                 },
                               ),
                               title: Text(list[index]['nombre'],style: TextStyle(color: Colors.white),),
-                              subtitle: Text(list[index]['especialidad']),
+                              subtitle: Text(list[index]['materia']),
                               trailing: GestureDetector(
                                 child: Icon(Icons.delete),
                                 onTap: () {
                                   setState(() {
-                                    var url = Uri.parse("http://192.168.1.71/justy/borralum.php");
+                                    var url = Uri.parse("http://192.168.1.71/justy/borrardoc.php");
                                     http.post(url, body: {
-                                      'numControl': list[index]['numControl'],
+                                      'idDoc': list[index]['idDoc'],
                                     });
                                   });
                                   debugPrint('delete Clicked');

@@ -4,7 +4,7 @@
 	
 $db = mysqli_connect('localhost','root','','justy');
 
-	$query = $db->query("SELECT `grupo`. * FROM `grupo`;");
+	$query = $db->query("SELECT * FROM grupo");
 	$result = array();
 
 	while ($rowData = $query->fetch_assoc()) {
