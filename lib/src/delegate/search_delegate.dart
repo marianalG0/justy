@@ -76,7 +76,7 @@ class DataSearch extends SearchDelegate {
   );
 }
 Future<List<Map<String, dynamic>>> searchByPhoneNumber(String numControl) async {
-  String url = "http://192.168.20.74/justy/getalum.php";
+  String url = "http://192.168.1.71/justy/getalum.php";
 
   Map<String, String> headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   Map<String, String> body = {'numControl': numControl};

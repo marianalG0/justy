@@ -43,14 +43,14 @@ class _FromGrupoState extends State<FormGrupo> {
   addUpdateData() {
     if (editMode) {
       //para editar uno existente
-      var url = Uri.parse("http://192.168.20.74/justy/editargrup.php");
+      var url = Uri.parse("http://192.168.1.71/justy/editargrup.php");
       http.post(url, body: {
         'nomenclatura': widget.list![widget.index!]['nomenclatura'],
         'aula': aula.text,
       });
     } else {
       //para agregar uno
-      var url = Uri.parse("http://192.168.20.74/justy/agregargrup.php");
+      var url = Uri.parse("http://192.168.1.71/justy/agregargrup.php");
       http.post(url, body: {
         'nomenclatura': nomenclatura.text,
         'aula': aula.text,

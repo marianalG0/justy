@@ -17,7 +17,7 @@ class listJusty extends StatefulWidget {
 
 class _listJustyState extends State<listJusty> {
   Future getData() async {
-    var url = Uri.parse("http://192.168.20.74/justy/leerjusti.php");
+    var url = Uri.parse("http://192.168.1.71/justy/leerjusti.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -97,7 +97,7 @@ class _listJustyState extends State<listJusty> {
                                 child: Icon(Icons.delete),
                                 onTap: () {
                                   setState(() {
-                                    var url = Uri.parse("http://192.168.20.74/justy/borrarjusti.php");
+                                    var url = Uri.parse("http://192.168.1.71/justy/borrarjusti.php");
                                     http.post(url, body: {
                                       'idJusty': list[index]['idJusty'],
                                     });
@@ -129,51 +129,7 @@ class _listJustyState extends State<listJusty> {
     );
   }
 
-  Widget _appBar(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    final buscador = Container(
-      margin: EdgeInsets.only(top: size.height * 0.12, left: size.width * 0.08),
-      width: size.width * 0.85,
-      child: TextField(
-        decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(35),
-                borderSide: BorderSide.none),
-            hintText: 'Buscar...',
-            suffixIcon: Icon(Icons.search),
-            suffixIconColor: Color.fromRGBO(91, 74, 66, 1)),
-      ),
-    );
-
-    return Stack(children: [
-      Container(
-        decoration: const BoxDecoration(
-            color: Color.fromRGBO(246, 231, 211, 1),
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(40),
-                bottomRight: Radius.circular(40))),
-        width: size.width,
-        height: size.height * 0.23,
-      ),
-      Container(
-          margin: EdgeInsets.only(top: 40),
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_rounded),
-            iconSize: 40,
-            color: Color.fromRGBO(91, 74, 66, 1),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          )),
-      buscador,
-    ]);
-  }
-}
-
-
+  
   Widget _appBar(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
@@ -215,3 +171,4 @@ class _listJustyState extends State<listJusty> {
           )),
     ]);
   }
+}

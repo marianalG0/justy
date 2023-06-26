@@ -21,7 +21,7 @@ class _formAlumState extends State<formAlum> {
 
   //conexion a la base de datos para mostrarlo inicio codigo
   Future getAllgrupo() async {
-    var url = Uri.parse("http://192.168.20.74/justy/leergrupo.php");
+    var url = Uri.parse("http://192.168.1.71/justy/leergrupo.php");
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -34,7 +34,7 @@ class _formAlumState extends State<formAlum> {
 
   //conexion a la base de datos para mostrarlo inicio codigo
   Future getAllperson() async {
-    var url = Uri.parse("http://192.168.20.74/justy/leerperson.php");
+    var url = Uri.parse("http://192.168.1.71/justy/leerperson.php");
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -60,7 +60,7 @@ class _formAlumState extends State<formAlum> {
   addUpdateData() {
     if (editMode) {
       //para editar uno existente
-      var url = Uri.parse("http://192.168.20.74/justy/editaralumno.php");
+      var url = Uri.parse("http://192.168.1.71/justy/editaralumno.php");
       http.post(url, body: {
         'numControl': widget.list![widget.index!]['numControl'],
         'idPersona': selectedValue2,
@@ -71,7 +71,7 @@ class _formAlumState extends State<formAlum> {
       });
     } else {
       //para agregar uno
-      var url = Uri.parse("http://192.168.20.74/justy/agregaralumno.php");
+      var url = Uri.parse("http://192.168.1.71/justy/agregaralumno.php");
       http.post(url, body: {
         'numControl': numControl.text,
         'idPersona': selectedValue2,

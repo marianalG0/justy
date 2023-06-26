@@ -63,7 +63,7 @@ class SearchJust extends SearchDelegate {
             final result = snapshot.data![index];
             return ListTile(
               title: Text(result['numControl']),
-              subtitle: Text(result['nombre']),
+              subtitle: Text(result['motivo']),
             );
           },
         );
@@ -76,7 +76,7 @@ class SearchJust extends SearchDelegate {
   );
 }
 Future<List<Map<String, dynamic>>> searchByPhoneNumber(String numControl) async {
-  String url = "http://192.168.20.74/justy/getjusty.php";
+  String url = "http://192.168.1.71/justy/getjusty.php";
 
   Map<String, String> headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   Map<String, String> body = {'numControl': numControl};

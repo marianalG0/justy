@@ -17,7 +17,7 @@ class listDoc extends StatefulWidget {
 
 class _listDocState extends State<listDoc> {
   Future getData() async {
-    var url = Uri.parse("http://192.168.20.74/justy/leedoc.php");
+    var url = Uri.parse("http://192.168.1.71/justy/leedoc.php");
     var response = await http.get(url);
     return json.decode(response.body);
   }
@@ -97,7 +97,7 @@ class _listDocState extends State<listDoc> {
                                 child: Icon(Icons.delete),
                                 onTap: () {
                                   setState(() {
-                                    var url = Uri.parse("http://192.168.20.74/justy/borrardoc.php");
+                                    var url = Uri.parse("http://192.168.1.71/justy/borrardoc.php");
                                     http.post(url, body: {
                                       'idDoc': list[index]['idDoc'],
                                     });
