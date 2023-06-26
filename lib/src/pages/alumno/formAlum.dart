@@ -49,8 +49,6 @@ class _formAlumState extends State<formAlum> {
   String? selectedValue2;
 //CONTROLADORES
   TextEditingController numControl = TextEditingController();
-  TextEditingController idPersona = TextEditingController();
-  TextEditingController idGrupo = TextEditingController();
   TextEditingController semestre = TextEditingController();
   TextEditingController turno = TextEditingController();
   TextEditingController especialidad = TextEditingController();
@@ -65,8 +63,8 @@ class _formAlumState extends State<formAlum> {
       var url = Uri.parse("http://192.168.1.71/justy/editaralumno.php");
       http.post(url, body: {
         'numControl': widget.list![widget.index!]['numControl'],
-        'idPersona': selectedValue,
-        'idGrupo': selectedValue2,
+        'idPersona': selectedValue2,
+        'idGrupo': selectedValue,
         'semestre': semestre.text,
         'turno': turno.text,
         'especialidad': especialidad.text,
@@ -76,8 +74,8 @@ class _formAlumState extends State<formAlum> {
       var url = Uri.parse("http://192.168.1.71/justy/agregaralumno.php");
       http.post(url, body: {
         'numControl': numControl.text,
-        'idPersona': selectedValue,
-        'idGrupo': selectedValue2,
+        'idPersona': selectedValue2,
+        'idGrupo': selectedValue,
         'semestre': semestre.text,
         'turno': turno.text,
         'especialidad': especialidad.text,
@@ -94,8 +92,6 @@ class _formAlumState extends State<formAlum> {
     if (widget.index != null) {
       editMode = true;
       numControl.text = widget.list?[widget.index!]['numControl'];
-      idPersona.text = widget.list![widget.index!]['idPersona'];
-      idGrupo.text = widget.list![widget.index!]['idGrupo'];
       semestre.text = widget.list![widget.index!]['semestre'];
       turno.text = widget.list![widget.index!]['turno'];
       especialidad.text = widget.list![widget.index!]['especialidad'];
